@@ -1,10 +1,10 @@
-package ua.edu.sumdu.j2se.Roman.tasks;
+package ua.edu.sumdu.j2se.roman.tasks;
 
 /**
  * The Task class implements the functionality
  *of the task manager with repetitive and non-repetitive tasks
  * @version 1.0
- * @author Roman
+ * @author roman
  */
 public class Task {
     private String title;            //назва задачі
@@ -83,7 +83,7 @@ public class Task {
      * @return ert
      */
     public int getTime(){
-        if(isRepeated == true) return start;
+        if(isRepeated) return start;
         else return time;
     }
 
@@ -93,7 +93,7 @@ public class Task {
      * @param time ert
      */
     public void setTime(int time){
-        if(isRepeated == true) isRepeated = false;
+        if(isRepeated) isRepeated = false;
         this.time = time;
     }
 
@@ -103,7 +103,7 @@ public class Task {
      * @return ert
      */
     public int getStartTime(){
-        if(isRepeated == false) return time;
+        if(!isRepeated) return time;
         return start;
     }
 
@@ -113,7 +113,7 @@ public class Task {
      * @return ert
      */
     public int getEndTime(){
-        if(isRepeated == false) return time;
+        if(!isRepeated) return time;
         else return end;
     }
 
@@ -123,7 +123,7 @@ public class Task {
      * @return ert
      */
     public int getRepeatInterval(){
-        if(isRepeated == false) return interval = 0;
+        if(!isRepeated) return interval = 0;
         return interval;
     }
 
@@ -135,7 +135,7 @@ public class Task {
      * @param interval ert
      */
     public void setTime(int start, int end, int interval){
-        if(isRepeated == false) isRepeated = true;
+        if(!isRepeated) isRepeated = true;
         this.start = start;
         this.end = end;
         this.interval = interval;
@@ -151,32 +151,34 @@ public class Task {
     }
 
     /**
-     * метод, що повертає час наступного
-     * виконання задачі після вказаного часу current, якщо після вказаного часу задача не виконується, то
+     * метод, що повертає час наступного виконання задачі
+     * після вказаного часу current, якщо після вказаного часу задача не виконується, то
      * метод має повертати -1.
      * @param current
      * @return
      */
     public int nextTimeAfter(int current){
-        if(active == false) { // якщо після вказаного часу задача не виконується, то метод має повертати -1
+        if(!active) { // якщо після вказаного часу задача не виконується, то метод має повертати -1
             return -1;
         }
-        if(isRepeated == false) {
+        if(!isRepeated) {
             if(current < time) {
-                return time; // цей момент
+                return time; // ще не виконалась
             }
             else {
-                return -1; // ніколи
+                return -1; // виконалась
             }
 
         }
-        else{
+        else{ // якщо задача є активною і повторюється
             if(current < start) {
                 return start; // початок
             }
+
             for(int i = start; i <= end; i+= interval){ //задача є активною і повторюється
                 if(current < i) return i;
             }
+
         }
 
         return -1;
