@@ -23,7 +23,8 @@ public class Task {
      */
     public Task(String title, int time){
         this.title = title;
-        this.time = time;
+        if(time < 0) throw new IllegalArgumentException(time + " < 0");
+        else this.time = time;
         active = false;
         isRepeated = false;
     }
@@ -38,9 +39,12 @@ public class Task {
      */
     public Task(String title, int start, int end, int interval){
         this.title = title;
-        this.start = start;
-        this.end = end;
-        this.interval = interval;
+        if(start < 0 || end < 0 || interval < 0) throw new IllegalArgumentException(time + " < 0");
+        else{
+            this.start = start;
+            this.end = end;
+            this.interval = interval;
+        }
         active = false;
         isRepeated = true;
     }

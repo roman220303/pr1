@@ -1,5 +1,7 @@
 package ua.edu.sumdu.j2se.roman.tasks;
 
+import java.util.Arrays;
+
 public class ArrayTaskList {
     private int size_now; // кількість елементів, після додавання нової задачі
     private int size_all = 1; // вмістимість масиву
@@ -64,8 +66,13 @@ public class ArrayTaskList {
      * @return array[index]
      */
 
-    public Task getTask(int index) {
-        return array[index];
+    public Task getTask(int index) throws Throwable {
+       try{
+           return array[index];
+       }
+       catch(IndexOutOfBoundsException e){
+           throw new IndexOutOfBoundsException();
+        }
     }
 
     /**
