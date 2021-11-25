@@ -5,7 +5,7 @@ abstract public class AbstractTaskList extends TaskListFactory {
     public abstract Task getTask(int index)  throws Throwable;
     public abstract int size();
     public abstract boolean remove(Task task);
-    public ListTypes.types type;
+    private ListTypes.types type;
 
     public AbstractTaskList incoming(int from, int to) throws Throwable{
         if(size() == 0) throw new Exception("Немає задач");
