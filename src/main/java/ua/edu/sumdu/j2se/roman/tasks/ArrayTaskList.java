@@ -2,7 +2,7 @@ package ua.edu.sumdu.j2se.roman.tasks;
 
 import java.util.Arrays;
 
-public class ArrayTaskList {
+public class ArrayTaskList extends AbstractTaskList {
     private int size_now; // кількість елементів, після додавання нової задачі
     private int size_all = 1; // вмістимість масиву
     private Task[] array = new Task[size_all];

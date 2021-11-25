@@ -1,8 +1,8 @@
 package ua.edu.sumdu.j2se.roman.tasks;
 
-public class LinkedTaskList {
+public class LinkedTaskList extends AbstractTaskList {
     private int size;   //розмір
-    private Node head;  //голова списку
+    private Node head;
 
     private class Node {
         private Task data;  //вміст вузла
@@ -43,7 +43,7 @@ public class LinkedTaskList {
 
     public boolean remove(Task task){
         Node current = head;
-        Node previous = null ;
+        Node previous = null;
         boolean isremove = false;
 
         while (!current.data.getTitle().equals(task.getTitle())) {
