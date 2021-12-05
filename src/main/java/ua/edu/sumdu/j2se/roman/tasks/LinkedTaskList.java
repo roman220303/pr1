@@ -1,8 +1,78 @@
 package ua.edu.sumdu.j2se.roman.tasks;
 
-public class LinkedTaskList extends AbstractTaskList {
+import java.util.*;
+
+
+public class LinkedTaskList extends AbstractTaskList implements Iterable<Task> {
+
     private int size;   //розмір
     private Node head;
+
+    @Override
+    public String toString() {
+        return "LinkedTaskList{" +
+                "size=" + size +
+                ", head=" + head +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (getClass() != o.getClass()) return false;
+
+        LinkedTaskList that = (LinkedTaskList) o;
+        if (that.head == null && head == null) return true;
+        while (head.pNext != null) {
+            if (!(that.head.data.equals(head.data))) {
+                return false;
+            }
+            head = head.pNext;
+        }
+        return head.data.equals(that.head.data);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), size, head.data);
+    }
+
+
+
+    @Override
+    public Iterator<Task> iterator() {
+        return new LinkedIterator(this);
+    }
+    static class LinkedIterator implements  Iterator<Task>{
+        private LinkedTaskList list;
+        private Task task;
+        private int index = 0;
+        public LinkedIterator(LinkedTaskList list){
+            this.list = list;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index < list.size();
+        }
+
+        @Override
+        public Task next() throws NoSuchElementException {
+            if(hasNext()){
+                task = list.getTask(index++);
+                return task;
+            }
+            else throw new NoSuchElementException("у списку не має наступного елемента");
+        }
+
+        @Override
+        public void remove() throws  IllegalStateException{
+            if (task == null) throw new IllegalStateException("remove() без next() неможливо викликати");
+            list.remove(task);
+            index--;
+        }
+    }
+
 
     private class Node {
         private Task data;  //вміст вузла
@@ -12,6 +82,16 @@ public class LinkedTaskList extends AbstractTaskList {
             this.data = data;
             pNext = null;
         }
+    }
+
+    @Override
+    public LinkedTaskList clone() throws CloneNotSupportedException {
+        LinkedTaskList list = (LinkedTaskList) super.clone();
+        list.head = null;
+        list.size = 0;
+        for(Task a : this)
+            list.add(a);
+        return list;
     }
 
     public void add(Task task){
@@ -72,6 +152,7 @@ public class LinkedTaskList extends AbstractTaskList {
     }
 
 
+
     public LinkedTaskList incoming(int from, int to){
         LinkedTaskList listtime = new LinkedTaskList();
         Node listall = head;
@@ -83,6 +164,5 @@ public class LinkedTaskList extends AbstractTaskList {
         }
         return listtime;
     }
-
 
 }

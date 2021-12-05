@@ -1,12 +1,14 @@
 package ua.edu.sumdu.j2se.roman.tasks;
 
+import java.util.Objects;
+
 /**
  * The Task class implements the functionality
  *of the task manager with repetitive and non-repetitive tasks
  * @version 1.0
  * @author roman
  */
-public class Task {
+public class Task implements Cloneable{
     private String title;            //назва задачі
     private int time;               //час виконання задачі
     private int start;              //час, коли починається задача
@@ -14,6 +16,37 @@ public class Task {
     private int interval;           //інтервал виконання завдання
     private boolean active;         //чи активна задача
     private boolean isRepeated;         //чи повторюється задача
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Task)) return false;
+        Task task = (Task) o;
+        return time == task.time && start == task.start && end == task.end && interval == task.interval && active == task.active && isRepeated == task.isRepeated && Objects.equals(title, task.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, time, start, end, interval, active, isRepeated);
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "title='" + title + '\'' +
+                ", time=" + time +
+                ", start=" + start +
+                ", end=" + end +
+                ", interval=" + interval +
+                ", active=" + active +
+                ", isRepeated=" + isRepeated +
+                '}';
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
     /**
      *неактивна задачу, яка
@@ -187,4 +220,5 @@ public class Task {
 
         return -1;
     }
+
 }

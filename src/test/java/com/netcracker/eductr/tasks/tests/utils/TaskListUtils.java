@@ -9,7 +9,8 @@ import java.util.stream.IntStream;
 
 public class TaskListUtils {
     public static List<Task> tasksToList(TaskList taskList) {
-        return IntStream.range(0, taskList.size()).mapToObj(i -> taskList.getTask(i)).collect(Collectors.toList());
+        return IntStream.range(0, taskList.size()).mapToObj(taskList::getTask).collect(Collectors.toList());
+        //return IntStream.range(0, taskList.size()).mapToObj(i -> taskList.getTask(i)).collect(Collectors.toList());
     }
 
     public static String describeTasks(List<Task> target) {
