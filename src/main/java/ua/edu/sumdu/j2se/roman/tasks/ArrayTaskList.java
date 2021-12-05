@@ -1,11 +1,17 @@
 package ua.edu.sumdu.j2se.roman.tasks;
 
-import java.util.Arrays;
 
-public class ArrayTaskList extends AbstractTaskList {
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+
+public class ArrayTaskList extends AbstractTaskList implements Iterable<Task>{
+
     private int size_now; // кількість елементів, після додавання нової задачі
     private int size_all = 1; // вмістимість масиву
     private Task[] array = new Task[size_all];
+
 
     /**
      * метод, що додає до списку вказану задачу
@@ -33,20 +39,16 @@ public class ArrayTaskList extends AbstractTaskList {
      * @return
      */
 
-    public boolean remove(Task task){
-        boolean isremove = false;
-        int remove = 0;
-        for(int i = 0; i < size_now; i++) {
-            if(array[i].getTitle().equals(task.getTitle())){
-                remove = i;
-                isremove = true;
+    public boolean remove(Task task) {
+        for (int i = 0;i < size_now; i++){
+            if (array[i].equals(task)){
+                for (int j = i+1; j<size_now; j++) {
+                    array[i] = array[j];
+                    i++;
+                }
+                size_now--;
+                return  true;
             }
-        }
-
-        if(isremove) {
-            System.arraycopy(array, remove + 1, array, remove, size_now - 1 - remove);
-            size_now--;
-            return true;
         }
         return false;
     }
@@ -93,7 +95,81 @@ public class ArrayTaskList extends AbstractTaskList {
         return arraytime;
     }
 
+    @Override
+    public Iterator<Task> iterator() {
+        return new ArrayIterator(this);
+    }
+
+    static class ArrayIterator implements  Iterator<Task>{
+        private ArrayTaskList array;
+        private Task task;
+        private int index = 0;
+        public ArrayIterator(ArrayTaskList array){
+            this.array = array;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return index < array.size();
+        }
+
+        @Override
+        public Task next() throws NoSuchElementException {
+            if (!hasNext()) throw new NoSuchElementException("у списку не має наступного елемента");
+            try {
+                task = array.getTask(index++);
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+            return task;
+        }
+
+        @Override
+        public void remove() throws  IllegalStateException{
+            if (task == null) throw new IllegalStateException("remove() без next() неможливо викликати");
+            array.remove(task);
+            index--;
+        }
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ArrayTaskList)) return false;
+        ArrayTaskList that = (ArrayTaskList) o;
+        return size_all == that.size_all && Arrays.equals(array, that.array);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(size_all);
+        result = 31 * result + Arrays.hashCode(array);
+        return result;
+    }
+
+    @Override
+    public ArrayTaskList clone() throws CloneNotSupportedException {
+        ArrayTaskList arrayTaskList = (ArrayTaskList) super.clone();
+        arrayTaskList.array = new Task[size_now];
+        arrayTaskList.size_now = 0;
+        for(Task a : array)
+            arrayTaskList.add(a);
+        return arrayTaskList;
+    }
+
+    @Override
+    public String toString() {
+        return "ArrayTaskList{" +
+                "size_now=" + size_now +
+                ", size_all=" + size_all +
+                ", array=" + Arrays.toString(array) +
+                '}';
+    }
+
 }
+
+
 
 
 
