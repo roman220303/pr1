@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-public class LinkedTaskList extends AbstractTaskList implements Iterable<Task> {
+public class LinkedTaskList extends AbstractTaskList implements Iterable<Task>, Cloneable {
 
     private int size;   //розмір
     private Node head;
@@ -162,21 +162,5 @@ public class LinkedTaskList extends AbstractTaskList implements Iterable<Task> {
     public int size() {
         return size;
     }
-
-
-    /*
-    public LinkedTaskList incoming(int from, int to){
-        LinkedTaskList listtime = new LinkedTaskList();
-        Node listall = head;
-        for (int i = 0; i < size; i++){
-            if (listall.data.nextTimeAfter(from)!= -1 && listall.data.nextTimeAfter(from) <= to){
-                listtime.add(listall.data);
-            }
-            listall = listall.pNext;
-        }
-        return listtime;
-    }
-    *
-     */
 
 }

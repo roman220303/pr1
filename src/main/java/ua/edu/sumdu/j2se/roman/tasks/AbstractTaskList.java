@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-abstract public class AbstractTaskList extends TaskListFactory  implements Cloneable, Iterable<Task>{
+abstract public class AbstractTaskList extends TaskListFactory  implements Iterable<Task>{
     public abstract Stream<Task> getStream();
     public abstract void add(Task task);
     public abstract Task getTask(int index)  throws Throwable;
@@ -16,16 +16,7 @@ abstract public class AbstractTaskList extends TaskListFactory  implements Clone
     public final AbstractTaskList incoming(int from, int to) throws Throwable{
         if(size() == 0) throw new Exception("Немає задач");
         AbstractTaskList list = new LinkedTaskList();
-        /*
-        for(int i = 0; i < size(); i++){
-            Task task = getTask(i);
-            if (task.nextTimeAfter(from)!= -1 && task.nextTimeAfter(from) <= to){
-                    list.add(task);
-            }
-        }
-        *
-         */
-        getStream().filter(task -> task.nextTimeAfter(from)!= -1 && task.getEndTime() <= to).forEach(task -> list.add(task));
+        getStream().filter(task -> task.nextTimeAfter(from)!= -1 && task.getEndTime() <= to).forEach(list::add);
         return list;
     }
 
