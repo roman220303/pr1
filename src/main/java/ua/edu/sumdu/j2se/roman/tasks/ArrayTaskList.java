@@ -1,10 +1,10 @@
 package ua.edu.sumdu.j2se.roman.tasks;
 
-
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class ArrayTaskList extends AbstractTaskList implements Iterable<Task>{
 
@@ -12,6 +12,10 @@ public class ArrayTaskList extends AbstractTaskList implements Iterable<Task>{
     private int size_all = 1; // вмістимість масиву
     private Task[] array = new Task[size_all];
 
+    @Override
+    public Stream<Task> getStream() {
+        return Arrays.stream(array);
+    }
 
     /**
      * метод, що додає до списку вказану задачу
@@ -69,21 +73,23 @@ public class ArrayTaskList extends AbstractTaskList implements Iterable<Task>{
      */
 
     public Task getTask(int index) throws Throwable {
-       try{
-           return array[index];
-       }
-       catch(IndexOutOfBoundsException e){
-           throw new IndexOutOfBoundsException();
+        try{
+            return array[index];
+        }
+        catch(IndexOutOfBoundsException e){
+            throw new IndexOutOfBoundsException();
         }
     }
 
-    /**
+    /*
      * метод, що повертає
      * підмножину задач, які заплановані на виконання хоча б раз після часу from і не пізніше ніж to
      * @param from
      * @param to
      * @return arraytime
      */
+
+    /*
 
     public ArrayTaskList incoming(int from, int to){
         ArrayTaskList arraytime = new ArrayTaskList();
@@ -94,6 +100,10 @@ public class ArrayTaskList extends AbstractTaskList implements Iterable<Task>{
         }
         return arraytime;
     }
+    *
+     */
+
+
 
     @Override
     public Iterator<Task> iterator() {
