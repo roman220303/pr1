@@ -1,9 +1,10 @@
 package ua.edu.sumdu.j2se.roman.tasks;
 
 import java.util.*;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
-
-public class LinkedTaskList extends AbstractTaskList implements Iterable<Task> {
+public class LinkedTaskList extends AbstractTaskList implements Iterable<Task>, Cloneable {
 
     private int size;   //розмір
     private Node head;
@@ -94,6 +95,17 @@ public class LinkedTaskList extends AbstractTaskList implements Iterable<Task> {
         return list;
     }
 
+    @Override
+    public Stream<Task> getStream() {
+        Iterator<Task> taskIterator = this.iterator();
+        return StreamSupport.stream(
+                Spliterators.spliteratorUnknownSize(
+                        taskIterator,
+                        Spliterator.ORDERED),
+                false
+        );
+    }
+
     public void add(Task task){
         Node currentNode = head;    // поточний вузол
         if(head == null) { // якщо елементів не було, додай на верх списку
@@ -149,20 +161,6 @@ public class LinkedTaskList extends AbstractTaskList implements Iterable<Task> {
 
     public int size() {
         return size;
-    }
-
-
-
-    public LinkedTaskList incoming(int from, int to){
-        LinkedTaskList listtime = new LinkedTaskList();
-        Node listall = head;
-        for (int i = 0; i < size; i++){
-            if (listall.data.nextTimeAfter(from)!= -1 && listall.data.nextTimeAfter(from) <= to){
-                listtime.add(listall.data);
-            }
-            listall = listall.pNext;
-        }
-        return listtime;
     }
 
 }
