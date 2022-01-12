@@ -98,12 +98,7 @@ public class LinkedTaskList extends AbstractTaskList implements Iterable<Task>, 
     @Override
     public Stream<Task> getStream() {
         Iterator<Task> taskIterator = this.iterator();
-        return StreamSupport.stream(
-                Spliterators.spliteratorUnknownSize(
-                        taskIterator,
-                        Spliterator.ORDERED),
-                false
-        );
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(taskIterator, Spliterator.ORDERED), false);
     }
 
     public void add(Task task){
