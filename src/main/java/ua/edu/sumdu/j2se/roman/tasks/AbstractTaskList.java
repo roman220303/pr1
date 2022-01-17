@@ -1,5 +1,6 @@
 package ua.edu.sumdu.j2se.roman.tasks;
 
+import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -13,10 +14,10 @@ abstract public class AbstractTaskList extends TaskListFactory  implements Itera
     private ListTypes.types type;
 
 
-    public final AbstractTaskList incoming(int from, int to) throws Throwable{
+    public final AbstractTaskList incoming(LocalDateTime from, LocalDateTime to) throws Throwable{
         if(size() == 0) throw new Exception("Немає задач");
         AbstractTaskList list = new LinkedTaskList();
-        getStream().filter(task -> task.nextTimeAfter(from)!= -1 && task.getEndTime() <= to).forEach(list::add);
+        getStream().filter(task ->task.getEndTime().isAfter(from) && task.getEndTime().isBefore(to)).forEach(list::add);
         return list;
     }
 

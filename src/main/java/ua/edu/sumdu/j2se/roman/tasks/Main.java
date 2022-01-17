@@ -5,11 +5,11 @@ import java.util.Iterator;
 public class Main {
 
 	public static void main(String[] args) throws Throwable {
-		boolean a;
+		/*boolean a;
 		boolean l;
-		Task task1 = new Task("greg",50);
+		*//*Task task1 = new Task("greg",50);
 		Task task2 = new Task("grgre",45);
-		Task task3 = new Task("regre",32);
+		Task task3 = new Task("regre",32);*//*
 		LinkedTaskList list1 = new LinkedTaskList();
 		list1.add(task1);
 		list1.add(task2);
@@ -65,7 +65,7 @@ public class Main {
 		{
 			Task task = iterator.next();
 			System.out.println(task);
-		}
+		}*/
 
 	}
 
