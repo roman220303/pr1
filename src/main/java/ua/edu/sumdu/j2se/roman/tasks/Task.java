@@ -1,5 +1,6 @@
 package ua.edu.sumdu.j2se.roman.tasks;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.time.LocalDateTime;
 
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
  * @version 1.0
  * @author roman
  */
-public class Task implements Cloneable{
+public class Task implements Cloneable, Serializable {
     private String title;           //назва задачі
     private LocalDateTime time;     //час виконання задачі
     private LocalDateTime start;    //час, коли починається задача

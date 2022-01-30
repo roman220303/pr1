@@ -22,20 +22,18 @@ public class Tasks {
         SortedMap<LocalDateTime, Set<Task>> calendar = new TreeMap<>();
 
         for (Task task: tasks) {
-            if(task.isActive()){
-                LocalDateTime holder = task.nextTimeAfter(start.minusSeconds(1));
+                LocalDateTime holder = task.nextTimeAfter(start);
                 while (holder != null && !holder.isAfter(end)){
                     if(calendar.containsKey(holder)){
-                        calendar.get(holder).add(task);
+                        calendar.get(holder).add(task); //якщо дата вже є, додаємо задачу
                     }
-                    else{
+                    else{ // якщо дати ще немає, створюємо її та додаєм в неї задачу
                         Set<Task> taskSet = new HashSet<>();
                         taskSet.add(task);
                         calendar.put(holder, taskSet);
                     }
                     holder = task.nextTimeAfter(holder);
                 }
-            }
         }
         return calendar;
     }
