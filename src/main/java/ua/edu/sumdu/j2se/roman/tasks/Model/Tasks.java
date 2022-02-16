@@ -1,4 +1,6 @@
-package ua.edu.sumdu.j2se.roman.tasks;
+package ua.edu.sumdu.j2se.roman.tasks.Model;
+
+import ua.edu.sumdu.j2se.roman.tasks.Model.Task;
 
 import java.time.LocalDateTime;
 import java.util.*;

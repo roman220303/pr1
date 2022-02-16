@@ -1,11 +1,15 @@
 package ua.edu.sumdu.j2se.roman.tasks;
 
+import ua.edu.sumdu.j2se.roman.tasks.Controller.Controller;
+import ua.edu.sumdu.j2se.roman.tasks.Model.LinkedTaskList;
+import ua.edu.sumdu.j2se.roman.tasks.Model.Task;
+import ua.edu.sumdu.j2se.roman.tasks.Model.TaskIO;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.time.LocalDateTime;
-import java.util.Iterator;
 
 public class Main {
 
@@ -13,8 +17,45 @@ public class Main {
 
 	public static void main(String[] args) throws Throwable {
 
+		Controller controller = new Controller();
+		controller.run();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		//Task task1 = new Task("b",2022-01-13,2022-01-13,2022-01-14,3600,false);
-		LocalDateTime date1 = LocalDateTime.of(2014, 9, 19, 14, 5);
+		/*LocalDateTime date1 = LocalDateTime.of(2014, 9, 19, 14, 5);
 		LocalDateTime date2 = LocalDateTime.of(2014, 9, 19, 14, 5);
 		LocalDateTime date3 = LocalDateTime.of(2014, 9, 19, 14, 5);
 		LocalDateTime date6 = LocalDateTime.of(2014, 9, 19, 14, 10);
@@ -54,7 +95,7 @@ public class Main {
 
 		for (Task task : actual) {
 			System.out.println(task);
-		}
+		}*/
 
 
 		/*boolean a;

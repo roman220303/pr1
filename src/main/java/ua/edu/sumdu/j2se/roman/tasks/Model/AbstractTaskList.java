@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.roman.tasks;
+package ua.edu.sumdu.j2se.roman.tasks.Model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-abstract public class AbstractTaskList extends TaskListFactory  implements Iterable<Task>, Serializable {
+abstract public class AbstractTaskList extends TaskListFactory implements Iterable<Task>, Serializable {
     public abstract Stream<Task> getStream();
     public abstract void add(Task task);
     public abstract Task getTask(int index)  throws Throwable;
@@ -39,4 +39,8 @@ abstract public class AbstractTaskList extends TaskListFactory  implements Itera
     }
 
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }
