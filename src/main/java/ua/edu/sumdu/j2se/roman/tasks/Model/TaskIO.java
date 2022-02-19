@@ -1,8 +1,6 @@
 package ua.edu.sumdu.j2se.roman.tasks.Model;
 
 import com.google.gson.Gson;
-import ua.edu.sumdu.j2se.roman.tasks.Model.AbstractTaskList;
-import ua.edu.sumdu.j2se.roman.tasks.Model.Task;
 
 import java.io.*;
 import java.time.LocalDateTime;

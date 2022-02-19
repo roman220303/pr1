@@ -60,7 +60,7 @@ public class Task implements Cloneable, Serializable {
         this.title = title;
         if(time == null) throw new IllegalArgumentException(time + " < 0");
         else this.time = time;
-        active = false;
+        active = time.isBefore(LocalDateTime.now());
         isRepeated = false;
     }
 
@@ -80,7 +80,7 @@ public class Task implements Cloneable, Serializable {
             this.end = end;
             this.interval = interval;
         }
-        active = false;
+        active = start.isBefore(LocalDateTime.now());
         isRepeated = true;
     }
 
@@ -186,6 +186,7 @@ public class Task implements Cloneable, Serializable {
         if (!isRepeated){
             isRepeated = true;
         }
+        active = start.isBefore(LocalDateTime.now());
         this.start = start;
         this.end = end;
         this.interval = interval;

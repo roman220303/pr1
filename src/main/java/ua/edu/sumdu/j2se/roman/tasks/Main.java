@@ -1,66 +1,31 @@
 package ua.edu.sumdu.j2se.roman.tasks;
 
 import ua.edu.sumdu.j2se.roman.tasks.Controller.Controller;
-import ua.edu.sumdu.j2se.roman.tasks.Model.LinkedTaskList;
-import ua.edu.sumdu.j2se.roman.tasks.Model.Task;
-import ua.edu.sumdu.j2se.roman.tasks.Model.TaskIO;
-
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
-import java.time.LocalDateTime;
 
 public class Main {
 
-	private static final int T00 = 8097;
-
-	public static void main(String[] args) throws Throwable {
-
+	public static void main(String[] args){
 		Controller controller = new Controller();
 		controller.run();
+		/*TreeMap<Integer, String> states = new TreeMap<Integer, String>();
+		states.put(10, "Germany");
+		states.put(2, "Spain");
+		states.put(14, "France");
+		states.put(3, "Italy");
 
+		// получим объект по ключу 2
+		String first = states.get(2);
+		// перебор элементов
+		for(Map.Entry<Integer, String> item : states.entrySet()){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		//Task task1 = new Task("b",2022-01-13,2022-01-13,2022-01-14,3600,false);
-		/*LocalDateTime date1 = LocalDateTime.of(2014, 9, 19, 14, 5);
-		LocalDateTime date2 = LocalDateTime.of(2014, 9, 19, 14, 5);
-		LocalDateTime date3 = LocalDateTime.of(2014, 9, 19, 14, 5);
-		LocalDateTime date6 = LocalDateTime.of(2014, 9, 19, 14, 10);
-		LocalDateTime date7 = LocalDateTime.of(2014, 9, 19, 14, 10);
-		LocalDateTime date8 = LocalDateTime.of(2014, 9, 19, 14, 10);
+			System.out.printf("Key: %d  Value: %s \n", item.getKey(), item.getValue());
+		}
+		LocalDateTime date1 = LocalDateTime.of(2014, 9, 19, 14, 5, 0);
+		LocalDateTime date2 = LocalDateTime.of(2014, 9, 20, 14, 5, 0);
+		LocalDateTime date3 = LocalDateTime.of(2014, 9, 21, 14, 5, 0);
+		LocalDateTime date6 = LocalDateTime.of(2014, 9, 22, 14, 10, 0);
+		LocalDateTime date7 = LocalDateTime.of(2014, 9, 25, 14, 10, 0);
+		LocalDateTime date8 = LocalDateTime.of(2014, 9, 26, 14, 10, 0);
 		Task task1 = new Task("a",date1);
 		Task task2 = new Task("b",date2);
 		Task task3 = new Task("c",date3);
@@ -74,6 +39,35 @@ public class Main {
 		list1.add(task4);
 		list1.add(task5);
 		list1.add(task6);
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		SortedMap<LocalDateTime, Set<Task>> calendar = new TreeMap<>();
+		for (Task task: list1) {
+			LocalDateTime holder = task.nextTimeAfter(LocalDateTime.parse("1999-01-01 10:00:00",formatter)); //start time
+			System.out.println(holder);
+			while (holder != null && !holder.isAfter(LocalDateTime.parse("2022-01-01 10:00:00",formatter))){
+				System.out.println("while");
+				if(calendar.containsKey(holder)){
+					calendar.get(holder).add(task); //якщо дата вже є, додаємо задачу
+					System.out.println("if");
+				}
+				else{ // якщо дати ще немає, створюємо її та додаєм в неї задачу
+					Set<Task> taskSet = new HashSet<>();
+					taskSet.add(task);
+					calendar.put(holder, taskSet);
+					System.out.println("else");
+				}
+				holder = task.nextTimeAfter(holder);
+			}
+		}
+
+		for(Map.Entry<LocalDateTime, Set<Task>> item : calendar.entrySet()){
+
+			System.out.printf("Key: %d  Value: %s \n", item.getKey(), item.getValue());
+		}*/
+
+		//Task task1 = new Task("b",2022-01-13,2022-01-13,2022-01-14,3600,false);
+		/*
 		for (Task task : list1) {
 			System.out.println(task);
 		}

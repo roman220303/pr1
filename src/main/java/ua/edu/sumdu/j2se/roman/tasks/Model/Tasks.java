@@ -1,7 +1,5 @@
 package ua.edu.sumdu.j2se.roman.tasks.Model;
 
-import ua.edu.sumdu.j2se.roman.tasks.Model.Task;
-
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.StreamSupport;
@@ -22,7 +20,6 @@ public class Tasks {
 
     public static SortedMap<LocalDateTime, Set<Task>> calendar(Iterable<Task> tasks, LocalDateTime start, LocalDateTime end) {
         SortedMap<LocalDateTime, Set<Task>> calendar = new TreeMap<>();
-
         for (Task task: tasks) {
                 LocalDateTime holder = task.nextTimeAfter(start);
                 while (holder != null && !holder.isAfter(end)){

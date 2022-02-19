@@ -1,26 +1,29 @@
 package ua.edu.sumdu.j2se.roman.tasks.Controller;
 
+import org.apache.log4j.Logger;
 import ua.edu.sumdu.j2se.roman.tasks.Model.*;
 import ua.edu.sumdu.j2se.roman.tasks.View.View;
 
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
+import java.time.format.DateTimeParseException;
+import java.util.*;
 
-public class Controller {
+public class Controller implements Runnable {
     private Task model;
     private AbstractTaskList list = new LinkedTaskList();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final File file = new File("task.txt");
-    private LocalDateTime timech = LocalDateTime.of(2014, 9, 19, 14, 5);
-
+    private LocalDateTime timech;
+    private View view = new View();
+    private static final Logger logger = Logger.getLogger(Controller.class);
 
     public void run(){
         try {
             TaskIO.readBinary(list,file);
-        } catch (Throwable e) {
-            e.printStackTrace();
+        } catch (NullPointerException e) {
+            System.out.println("Проблеми з даними");
         }
         runStartMenu();
     }
@@ -41,35 +44,47 @@ public class Controller {
                     runStartMenu();
                     break;
                 case "2":
-                    changeTask();
+                    if(checkList(list)) changeTask();
+                    else System.out.println("Задач немає");
                     runStartMenu();
                     break;
 
                 case "3":
-                    deleteTask();
+                    if(checkList(list)) deleteTask();
+                    else System.out.println("Задач немає");
                     runStartMenu();
                     break;
 
                 case "4":
                     if(checkList(list)) view.displayList(list);
                     else System.out.println("Задач немає");
-                    view.displayList(list);
                     runStartMenu();
                     break;
 
                 case "5":
-                    System.out.println("В разработке");
+                    if(checkList(list)) makeCalendar();
+                    else System.out.println("Задач немає");
                     runStartMenu();
                     break;
 
-                case "6":
+                case "ex":
                     isQuit = true;
+                    System.exit(0);
                     break;
 
                 default:
                     System.out.println("Введіть правильне значення");
                     break;
             }
+        }
+        try {
+            TaskIO.writeBinary(list,file);
+        } catch (NullPointerException e) {
+            System.out.println("Проблеми з даними");
+            logger.info("Проблема з даними");
+        } catch (Throwable throwable) {
+            logger.info("Проблема з даними");
+            throwable.printStackTrace();
         }
 
     }
@@ -82,65 +97,76 @@ public class Controller {
         String str;
         String strTitle;
         String strDate;
-        Task modelClone = new Task(" ", LocalDateTime.of(2014, 9, 19, 14, 5));
+        Task model = new Task(" ", LocalDateTime.of(2014, 9, 19, 14, 5));
 
         System.out.println();
-        System.out.print("\nВведіть назву задачі: ");
+        System.out.print("Введіть назву задачі: ");
 
         strTitle = keyboardReadWholeLn();
-        modelClone.setTitle(strTitle);
+        this.model.setTitle(strTitle);
 
         System.out.print("\nВведіть час виконання задачі (yyyy-MM-dd HH:mm:ss): ");
         strDate = keyboardReadWholeLn();
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        timech = LocalDateTime.parse(strDate, formatter);
-        modelClone.setTime(timech);
+        try {
+            timech = LocalDateTime.parse(strDate, formatter);
+        } catch (DateTimeParseException e){
+            System.out.println("Неправильний формат дати. Увага! (yyyy-MM-dd HH:mm:ss)");
+            createTask();
+        }
+        this.model.setTime(timech);
         System.out.print("\nВи хочете зробити завдання повторюваним (y/n) ? ");
         str = keyboardReadWholeLn();
 
         if (str.equals("y")) {
-            modelClone.setActive(true);
+            this.model.setActive(true);
             System.out.print("\nВведіть час завершення завдання (yyyy-MM-dd HH:mm:ss): ");
             strDate = keyboardReadWholeLn();
-            timech = LocalDateTime.parse(strDate, formatter);
-            modelClone.setTime(timech);
-            makeInterval(modelClone);
-            if(modelClone.getStartTime().isAfter(timech))
-                modelClone.setTime(modelClone.getStartTime(), timech, modelClone.getRepeatInterval());
+            try {
+                timech = LocalDateTime.parse(strDate, formatter);
+            } catch (DateTimeParseException e){
+                System.out.println("Неправильний формат дати. Увага! (yyyy-MM-dd HH:mm:ss)");
+                createTask();
+            }
+            makeInterval(model);
+            if(model.getStartTime().isBefore(timech))
+                model.setTime(model.getStartTime(), timech, model.getRepeatInterval());
             else {
                 System.out.println("Ви ввели час завершення завдання, який раніше, ніж час початку завдання!");
                 createTask();
             }
         }
-        model = modelClone;
         try {
             list.add(model);
         } catch (Exception e) {
             e.printStackTrace();
         }
         acceptChanges();
+        logger.info("Task \'" + model.getTitle() + "\' was created");
     }
 
     private void deleteTask(){
         String str;
         System.out.print("Яке завдання ви хочете видалити (введіть його назву)? ");
         str = keyboardReadWholeLn();
-
+        boolean isDelete = false;
 
         for (Task i : list) {
             if (str.equals(i.getTitle().toLowerCase())) {
-                System.out.println("Видалено");
                 list.remove(i);
-            }
-            else {
-                System.out.println("Задача не видалена. Виникла помилка!");
+                System.out.println("Видалено");
+                logger.info("Task \'" + i.getTitle() + "\' was deleted");
+                isDelete = true;
             }
         }
-        try {
-            TaskIO.writeBinary(list,file);
-        } catch (Throwable e) {
-            e.printStackTrace();
+        if(!isDelete) System.out.println("Задачі не знайдено. Виникла помилка!");
+        else {
+            try {
+                TaskIO.writeBinary(list,file);
+            } catch (Throwable e) {
+                logger.info("Проблема з даними");
+                e.printStackTrace();
+            }
         }
     }
 
@@ -157,10 +183,10 @@ public class Controller {
         System.out.println();
         System.out.println("Яке завдання ви хочете змінити (введіть його назву)? ");
 
-        str = keyboardReadWholeLn();
+        String strn = keyboardReadWholeLn();
 
         for (Task i : list) {
-            if (str.equals(i.getTitle())) {
+            if (strn.equals(i.getTitle())) {
                 System.out.println("\n1. Назва");
                 System.out.println("2. Час");
                 System.out.println("3. Час початку");
@@ -175,47 +201,75 @@ public class Controller {
                         System.out.print("Введіть назву завдання: ");
                         strTitle = keyboardReadWholeLn();
                         i.setTitle(strTitle);
+                        logger.info("Task \'" + strn + "\' was name changed -> " + strTitle);
                         break;
                     case "2":
                         System.out.print("\nВведіть дату виконання завдання (yyyy-MM-dd HH:mm:ss): ");
                         strDate = keyboardReadWholeLn();
-                        timech = LocalDateTime.parse(strDate, formatter);
+                        try {
+                            timech = LocalDateTime.parse(strDate, formatter);
+                        } catch (DateTimeParseException e){
+                            System.out.println("Неправильний формат дати. Увага! (yyyy-MM-dd HH:mm:ss)");
+                            changeTask();
+                        }
                         i.setTime(timech);
                         i.setActive(i.isActive());
+                        logger.info("Task \'" + strn + "\' was date changed -> " + i.getTime());
                         break;
                     case "3":
                         System.out.print("\nВведіть час початку завдання (yyyy-MM-dd HH:mm:ss):");
                         strDate = keyboardReadWholeLn();
-                        timech = LocalDateTime.parse(strDate, formatter);
-                        i.setTime(timech);
+                        try {
+                            timech = LocalDateTime.parse(strDate, formatter);
+                        } catch (DateTimeParseException e){
+                            System.out.println("Неправильний формат дати. Увага! (yyyy-MM-dd HH:mm:ss)");
+                            changeTask();
+                        }
+                        if (i.getStartTime().isAfter(timech))
+                            i.setTime(timech, i.getEndTime(), i.getRepeatInterval());
+                        else {
+                            System.out.println("Не вдалося проаналізувати дату! Введіть правильну дату, будь ласка.");
+                            changeTask();
+                        }
+                        logger.info("Task \'" + strn + "\' was start date changed -> " + i.getStartTime());
                         break;
                     case "4":
                         System.out.print("\nВведіть час завершення завдання (yyyy-MM-dd HH:mm:ss): ");
                         strDate = keyboardReadWholeLn();
-                        timech = LocalDateTime.parse(strDate, formatter);
+                        try {
+                            timech = LocalDateTime.parse(strDate, formatter);
+                        } catch (DateTimeParseException e){
+                            System.out.println("Неправильний формат дати. Увага! (yyyy-MM-dd HH:mm:ss)");
+                            changeTask();
+                        }
                         if (i.getStartTime().isAfter(timech))
                             i.setTime(i.getStartTime(), timech, i.getRepeatInterval());
                         else {
                             System.out.println("Не вдалося проаналізувати дату! Введіть правильну дату, будь ласка.");
                             changeTask();
                         }
+                        logger.info("Task \'" + strn + "\' was end date changed -> " + i.getEndTime());
                         break;
                     case "5":
                         makeInterval(i);
+                        logger.info("Task \'" + strn + "\' new interval");
                         break;
                     case "6":
                         System.out.println("Введіть 1/0 (активувати = 1, деактивувати = 0):");
                         str = keyboardReadWholeLn();
-                        if (str.equals("1"))
-                            i.setActive(true);
-                        else
-                            i.setActive(false);
+                        if (str.equals("1")) i.setActive(true);
+                        else i.setActive(false);
+                        logger.info("Task \'" + strn + "\' active = " + str);
                         break;
+                    default:
+                        System.out.println("Такої задачі не знайдено");
+                        runStartMenu();
                 }
                 model = i;
             }
         }
         acceptChanges();
+        logger.info("Task \'" + model.getTitle() + "\' was changed in datafile");
     }
 
     private void acceptChanges() {
@@ -229,14 +283,24 @@ public class Controller {
     }
 
     private void makeInterval(Task task) {
+        String strDate;
         int days;
-        int hours = 0;
-        int minutes = 0;
-        int seconds = 0;
+        int hours;
+        int minutes;
+        int seconds;
         int time = 0;
-        int interval = 0;
+        int interval;
         Scanner sc = new Scanner(System.in);
         String str;
+        System.out.print("\nВведіть час завершення завдання (yyyy-MM-dd HH:mm:ss): ");
+        strDate = keyboardReadWholeLn();
+        LocalDateTime end = LocalDateTime.now();
+        try {
+            end = LocalDateTime.parse(strDate,formatter);
+        } catch (DateTimeParseException e){
+            System.out.println("Неправильний формат дати. Увага! (yyyy-MM-dd HH:mm:ss)");
+            createTask();
+        }
         System.out.print("\nЗ якою частотою(день - 'd', година - 'h', хвилина - 'm', секунда - 's'): ");
         str = keyboardReadWholeLn();
         switch (str){
@@ -271,6 +335,36 @@ public class Controller {
                 break;
 
         }
-        task.setTime(task.getStartTime(), task.getEndTime(), time);
+        task.setTime(task.getStartTime(), end, time);
     }
+
+    private void makeCalendar() {
+        view.makeCalendarView();
+        Scanner scan = new Scanner(System.in);
+        String scanchar = scan.nextLine();
+        switch (scanchar){
+            case "2":
+                System.out.print("\nВивести задачі, починаючи з (yyyy-MM-dd HH:mm:ss): ");
+                String start = keyboardReadWholeLn();
+                System.out.print("\nВивести задачі, по дату (yyyy-MM-dd HH:mm:ss): ");
+                String end = keyboardReadWholeLn();
+                SortedMap<LocalDateTime, Set<Task>> calendar = Tasks.calendar(list, LocalDateTime.parse(start, formatter), LocalDateTime.parse(end, formatter));
+                try{
+                    view.printCalendar(calendar);
+                } catch (NullPointerException e){
+                    System.out.println("Активних задач на цей проміжок часу немає");
+                }
+                break;
+            case "1":
+                SortedMap<LocalDateTime, Set<Task>> calendar7 = Tasks.calendar(list, LocalDateTime.now(), LocalDateTime.now().plusDays(7));
+                view.printCalendar(calendar7);
+                try{
+                    view.printCalendar(calendar7);
+                } catch (NullPointerException e){
+                    System.out.println("Активних задач на цей проміжок часу немає");
+                }
+                break;
+        }
+    }
+
 }
