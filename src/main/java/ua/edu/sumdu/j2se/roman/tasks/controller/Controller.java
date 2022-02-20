@@ -20,6 +20,9 @@ public class Controller implements Runnable {
     private View view = new View();
     private static final Logger logger = Logger.getLogger(Controller.class);
 
+    /**
+     *
+     */
     public void run(){
         if(file.exists()){
             try {
@@ -30,6 +33,7 @@ public class Controller implements Runnable {
             runStartMenu();
         }
         else{
+            System.out.println("tyt");
             file = new File("task.txt");
             try {
                 if(file.createNewFile()) runStartMenu();
@@ -40,6 +44,9 @@ public class Controller implements Runnable {
         }
     }
 
+    /**
+     *
+     */
     public void runStartMenu(){
         Scanner scan = new Scanner(System.in);
         View view = new View();
@@ -50,6 +57,7 @@ public class Controller implements Runnable {
             String flag = scan.nextLine();
 
             switch (flag) {
+
                 case "1":
                     createTask();
                     runStartMenu();
@@ -90,20 +98,25 @@ public class Controller implements Runnable {
         }
         try {
             TaskIO.writeBinary(list,file);
-        } catch (NullPointerException e) {
-            System.out.println("Проблеми з даними");
-            logger.info("Проблема з даними");
-        } catch (Throwable throwable) {
-            logger.info("Проблема з даними");
-            throwable.printStackTrace();
+        } catch (Throwable e) {
+            System.out.println("Проблеми з даними/Throwable");
+            logger.info("Проблема з даними/Throwable");
         }
 
     }
 
+    /**
+     *
+     * @param list
+     * @return
+     */
     private boolean checkList(AbstractTaskList list) {
         return list.size() != 0;
     }
 
+    /**
+     *
+     */
     private void createTask(){
         String str;
         String strTitle;
@@ -157,6 +170,9 @@ public class Controller implements Runnable {
         logger.info("Task \'" + model.getTitle() + "\' was created");
     }
 
+    /**
+     *
+     */
     private void deleteTask(){
         String str;
         System.out.print("Яке завдання ви хочете видалити (введіть його назву)? ");
@@ -176,12 +192,15 @@ public class Controller implements Runnable {
             try {
                 TaskIO.writeBinary(list,file);
             } catch (Throwable e) {
-                logger.info("Проблема з даними");
-                e.printStackTrace();
+                System.out.println("Проблема з даними/Throwable");
+                logger.info("Проблема з даними/Throwable");
             }
         }
     }
 
+    /**
+     *
+     */
     private void changeTask(){
         String str;
         String strTitle;
@@ -194,7 +213,13 @@ public class Controller implements Runnable {
 
         for (Task i : list) {
             if (strn.equals(i.getTitle())) {
-                view.makeMenuChanged();
+                System.out.println("\n1. Назва");
+                System.out.println("2. Час");
+                System.out.println("3. Час початку");
+                System.out.println("4. Час закінчення");
+                System.out.println("5. Інтервал");
+                System.out.println("6. Зробіть його активним/неактивним");
+                System.out.print("Введіть свій варіант -> ");
                 str = view.keyboardReadWholeLn();
 
                 switch (str) {
@@ -273,16 +298,22 @@ public class Controller implements Runnable {
         logger.info("Task \'" + model.getTitle() + "\' was changed in datafile");
     }
 
+    /**
+     *
+     */
     private void acceptChanges() {
         try {
             TaskIO.writeBinary(list, file);
-        } catch (Exception e) {
-            System.out.println("File error");
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
+        } catch (Throwable e) {
+            System.out.println("Помилка з записом у файл/Throwable");
+            logger.info("Помилка з записом у файл/Throwable");
         }
     }
 
+    /**
+     *
+     * @param task
+     */
     private void makeInterval(Task task) {
         String strDate;
         int days;
@@ -339,6 +370,9 @@ public class Controller implements Runnable {
         task.setTime(task.getStartTime(), end, time);
     }
 
+    /**
+     *
+     */
     private void makeCalendar() {
         view.makeCalendarView();
         Scanner scan = new Scanner(System.in);
