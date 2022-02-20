@@ -96,13 +96,12 @@ public class Controller implements Runnable {
         String str;
         String strTitle;
         String strDate;
-        Task model = new Task(" ", LocalDateTime.of(2014, 9, 19, 14, 5));
 
         System.out.println();
         System.out.print("Введіть назву задачі: ");
 
         strTitle = view.keyboardReadWholeLn();
-        this.model.setTitle(strTitle);
+        model.setTitle(strTitle);
 
         System.out.print("\nВведіть час виконання задачі (yyyy-MM-dd HH:mm:ss): ");
         strDate = view.keyboardReadWholeLn();
@@ -113,12 +112,12 @@ public class Controller implements Runnable {
             System.out.println("Неправильний формат дати. Увага! (yyyy-MM-dd HH:mm:ss)");
             createTask();
         }
-        this.model.setTime(timech);
+        model.setTime(timech);
         System.out.print("\nВи хочете зробити завдання повторюваним (y/n) ? ");
         str = view.keyboardReadWholeLn();
 
         if (str.equals("y")) {
-            this.model.setActive(true);
+            model.setActive(true);
             System.out.print("\nВведіть час завершення завдання (yyyy-MM-dd HH:mm:ss): ");
             strDate = view.keyboardReadWholeLn();
             try {
@@ -138,7 +137,9 @@ public class Controller implements Runnable {
         try {
             list.add(model);
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Виникла помилка при додаванні нової задачі/Exception");
+            logger.info("Виникла помилка при додаванні нової задачі/Exception");
+            createTask();
         }
         acceptChanges();
         logger.info("Task \'" + model.getTitle() + "\' was created");
