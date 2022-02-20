@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.roman.tasks.Model;
+package ua.edu.sumdu.j2se.roman.tasks.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

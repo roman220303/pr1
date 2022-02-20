@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.roman.tasks.Model;
+package ua.edu.sumdu.j2se.roman.tasks.model;
 
 import com.google.gson.Gson;
 
@@ -70,6 +70,7 @@ public class TaskIO {
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file))){
             read(tasks,bufferedReader);
         } catch (IOException e){
+            System.out.println("Проблеми з зчитуванням файлу");
             e.printStackTrace();
         }
     }

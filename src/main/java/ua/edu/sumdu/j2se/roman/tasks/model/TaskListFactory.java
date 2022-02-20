@@ -1,9 +1,4 @@
-package ua.edu.sumdu.j2se.roman.tasks.Model;
-
-import ua.edu.sumdu.j2se.roman.tasks.Model.AbstractTaskList;
-import ua.edu.sumdu.j2se.roman.tasks.Model.ArrayTaskList;
-import ua.edu.sumdu.j2se.roman.tasks.Model.LinkedTaskList;
-import ua.edu.sumdu.j2se.roman.tasks.Model.ListTypes;
+package ua.edu.sumdu.j2se.roman.tasks.model;
 
 public class TaskListFactory {
     public static AbstractTaskList createTaskList(ListTypes.types type){

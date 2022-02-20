@@ -1,7 +1,7 @@
-package ua.edu.sumdu.j2se.roman.tasks.View;
+package ua.edu.sumdu.j2se.roman.tasks.view;
 
-import ua.edu.sumdu.j2se.roman.tasks.Model.AbstractTaskList;
-import ua.edu.sumdu.j2se.roman.tasks.Model.Task;
+import ua.edu.sumdu.j2se.roman.tasks.model.AbstractTaskList;
+import ua.edu.sumdu.j2se.roman.tasks.model.Task;
 
 import java.time.LocalDateTime;
 import java.util.*;

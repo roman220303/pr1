@@ -1,8 +1,8 @@
-package ua.edu.sumdu.j2se.roman.tasks.Controller;
+package ua.edu.sumdu.j2se.roman.tasks.controller;
 
 import org.apache.log4j.Logger;
-import ua.edu.sumdu.j2se.roman.tasks.Model.*;
-import ua.edu.sumdu.j2se.roman.tasks.View.View;
+import ua.edu.sumdu.j2se.roman.tasks.model.*;
+import ua.edu.sumdu.j2se.roman.tasks.view.View;
 
 import java.io.File;
 import java.time.LocalDateTime;

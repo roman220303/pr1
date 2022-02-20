@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.roman.tasks.Model;
+package ua.edu.sumdu.j2se.roman.tasks.model;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -18,6 +18,10 @@ public class Task implements Cloneable, Serializable {
     private int interval;           //інтервал виконання завдання
     private boolean active;         //чи активна задача
     private boolean isRepeated;     //чи повторюється задача
+
+
+    public Task() {
+    }
 
     @Override
     public boolean equals(Object o) {
