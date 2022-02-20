@@ -6,6 +6,14 @@ import java.util.stream.StreamSupport;
 
 public class Tasks {
 
+    /**
+     * метод, що повертає
+     * підмножину задач із колекції tasks, які заплановані на виконання хоча б раз після часу start і не пізніше ніж end.
+     * @param tasks
+     * @param start
+     * @param end
+     * @return
+     */
     public static Iterable<Task> incoming(Iterable<Task> tasks, LocalDateTime start, LocalDateTime end){
         return new Iterable<Task>(){
             @Override
@@ -18,6 +26,13 @@ public class Tasks {
         };
     }
 
+    /**
+     * метод, який буде будувати календар задач на заданий період.
+     * @param tasks
+     * @param start
+     * @param end
+     * @return
+     */
     public static SortedMap<LocalDateTime, Set<Task>> calendar(Iterable<Task> tasks, LocalDateTime start, LocalDateTime end) {
         SortedMap<LocalDateTime, Set<Task>> calendar = new TreeMap<>();
         for (Task task: tasks) {

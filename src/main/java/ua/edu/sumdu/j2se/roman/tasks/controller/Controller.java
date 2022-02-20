@@ -21,7 +21,7 @@ public class Controller implements Runnable {
     private static final Logger logger = Logger.getLogger(Controller.class);
 
     /**
-     *
+     * Метод, який зчитує дані з файлу. Якщо такого не існує, то створюється новий файл з іменем "task.txt".
      */
     public void run(){
         if(file.exists()){
@@ -33,7 +33,6 @@ public class Controller implements Runnable {
             runStartMenu();
         }
         else{
-            System.out.println("tyt");
             file = new File("task.txt");
             try {
                 if(file.createNewFile()) runStartMenu();
@@ -45,7 +44,7 @@ public class Controller implements Runnable {
     }
 
     /**
-     *
+     * Метод, який дає функціональність додати/змінити/видалити/переглянути задачі.
      */
     public void runStartMenu(){
         Scanner scan = new Scanner(System.in);
@@ -106,7 +105,7 @@ public class Controller implements Runnable {
     }
 
     /**
-     *
+     * Метод, який перевіряє на наявність задач в списку задач.
      * @param list
      * @return
      */
@@ -115,7 +114,7 @@ public class Controller implements Runnable {
     }
 
     /**
-     *
+     * Метод, який додає задачу до списку задач.
      */
     private void createTask(){
         String str;
@@ -171,7 +170,7 @@ public class Controller implements Runnable {
     }
 
     /**
-     *
+     * Метод, який видаляє задачу до списку задач.
      */
     private void deleteTask(){
         String str;
@@ -199,27 +198,22 @@ public class Controller implements Runnable {
     }
 
     /**
-     *
+     * Метод, який дає змогу зміни параметри задачі.
      */
     private void changeTask(){
         String str;
         String strTitle;
         String strDate;
+        Boolean isChanged = false;
 
         System.out.println();
-        System.out.println("Яке завдання ви хочете змінити (введіть його назву)? ");
+        System.out.print("Яке завдання ви хочете змінити (введіть його назву)? : ");
 
         String strn = view.keyboardReadWholeLn();
 
         for (Task i : list) {
             if (strn.equals(i.getTitle())) {
-                System.out.println("\n1. Назва");
-                System.out.println("2. Час");
-                System.out.println("3. Час початку");
-                System.out.println("4. Час закінчення");
-                System.out.println("5. Інтервал");
-                System.out.println("6. Зробіть його активним/неактивним");
-                System.out.print("Введіть свій варіант -> ");
+                view.makeMenuChanged();
                 str = view.keyboardReadWholeLn();
 
                 switch (str) {
@@ -268,7 +262,7 @@ public class Controller implements Runnable {
                             System.out.println("Неправильний формат дати. Увага! (yyyy-MM-dd HH:mm:ss)");
                             changeTask();
                         }
-                        if (i.getStartTime().isAfter(timech))
+                        if (i.getStartTime().isBefore(timech))
                             i.setTime(i.getStartTime(), timech, i.getRepeatInterval());
                         else {
                             System.out.println("Не вдалося проаналізувати дату! Введіть правильну дату, будь ласка.");
@@ -292,14 +286,19 @@ public class Controller implements Runnable {
                         runStartMenu();
                 }
                 model = i;
+                acceptChanges();
+                logger.info("Task \'" + model.getTitle() + "\' was changed in datafile");
+                isChanged = true;
             }
         }
-        acceptChanges();
-        logger.info("Task \'" + model.getTitle() + "\' was changed in datafile");
+        if(!isChanged) {
+            System.out.println("Задачу з такою назвою не знайдено!");
+            changeTask();
+        }
     }
 
     /**
-     *
+     * Метод, який викликається для збереження всіх змін у файл.
      */
     private void acceptChanges() {
         try {
@@ -311,11 +310,10 @@ public class Controller implements Runnable {
     }
 
     /**
-     *
+     * Допоміжний метод до createTask(), який викликається у разі, якщо задача буде повторюватись.
      * @param task
      */
     private void makeInterval(Task task) {
-        String strDate;
         int days;
         int hours;
         int minutes;
@@ -324,15 +322,7 @@ public class Controller implements Runnable {
         int interval;
         Scanner sc = new Scanner(System.in);
         String str;
-        System.out.print("\nВведіть час завершення завдання (yyyy-MM-dd HH:mm:ss): ");
-        strDate = view.keyboardReadWholeLn();
         LocalDateTime end = LocalDateTime.now();
-        try {
-            end = LocalDateTime.parse(strDate,formatter);
-        } catch (DateTimeParseException e){
-            System.out.println("Неправильний формат дати. Увага! (yyyy-MM-dd HH:mm:ss)");
-            createTask();
-        }
         System.out.print("\nЗ якою частотою(день - 'd', година - 'h', хвилина - 'm', секунда - 's'): ");
         str = view.keyboardReadWholeLn();
         switch (str){
@@ -367,15 +357,18 @@ public class Controller implements Runnable {
                 break;
 
         }
-        task.setTime(task.getStartTime(), end, time);
+        task.setTime(task.getStartTime(), task.getEndTime(), time);
     }
 
     /**
-     *
+     * Метод, який будує календар, відповідно до функціоналу:
+     * 1 - На тиждень від сьогоднішнього дня
+     * 2 - Задати власний проміжок часу
      */
     private void makeCalendar() {
         view.makeCalendarView();
         Scanner scan = new Scanner(System.in);
+        System.out.print("Вибір -> ");
         String scanchar = scan.nextLine();
         switch (scanchar){
             case "2":

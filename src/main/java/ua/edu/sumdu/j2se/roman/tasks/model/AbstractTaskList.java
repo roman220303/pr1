@@ -15,6 +15,14 @@ abstract public class AbstractTaskList extends TaskListFactory implements Iterab
     private ListTypes.types type;
 
 
+    /**
+     * метод, що повертає
+     * підмножину задач, які заплановані на виконання хоча б раз після часу from і не пізніше ніж to.
+     * @param from
+     * @param to
+     * @return
+     * @throws Throwable
+     */
     public final AbstractTaskList incoming(LocalDateTime from, LocalDateTime to) throws Throwable{
         if(size() == 0) throw new Exception("Немає задач");
         AbstractTaskList list = new LinkedTaskList();

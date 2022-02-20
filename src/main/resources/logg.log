@@ -33,3 +33,19 @@
 2022-02-20 INFO  [main]: Task 'namenew' was changed in datafile
 2022-02-20 INFO  [main]: Task 'r3' was deleted
 2022-02-20 INFO  [main]: Task 'data' was deleted
+2022-02-20 INFO  [main]: Task 'null' was changed in datafile
+2022-02-20 INFO  [main]: Task 'tasktask' was created
+2022-02-20 INFO  [main]: Task 'tasktask' was created
+2022-02-20 INFO  [main]: Task 'tasktask' was deleted
+2022-02-20 INFO  [main]: Task 'tasktask' was created
+2022-02-20 INFO  [main]: Task 'daterob' was created
+2022-02-20 INFO  [main]: Task 'daterob' was deleted
+2022-02-20 INFO  [main]: Task 'daterob' was deleted
+2022-02-20 INFO  [main]: Task 'daterob' was created
+2022-02-20 INFO  [main]: Task 'hsrthdthr' was created
+2022-02-20 INFO  [main]: Task 'daterob' was date changed -> 2022-03-22T10:00
+2022-02-20 INFO  [main]: Task 'daterob' was changed in datafile
+2022-02-20 INFO  [main]: Task 'daterob' active = 0
+2022-02-20 INFO  [main]: Task 'daterob' was changed in datafile
+2022-02-20 INFO  [main]: Task 'daterob' was end date changed -> 2022-04-22T10:00
+2022-02-20 INFO  [main]: Task 'daterob' was changed in datafile

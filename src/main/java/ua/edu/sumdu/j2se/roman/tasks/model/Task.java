@@ -138,6 +138,7 @@ public class Task implements Cloneable, Serializable {
     public void setTime(LocalDateTime time){
         if(isRepeated) isRepeated = false;
         this.time = time;
+        active = time.isAfter(LocalDateTime.now());
     }
 
     /**
@@ -190,7 +191,7 @@ public class Task implements Cloneable, Serializable {
         if (!isRepeated){
             isRepeated = true;
         }
-        active = start.isBefore(LocalDateTime.now());
+        active = start.isAfter(LocalDateTime.now());
         this.start = start;
         this.end = end;
         this.interval = interval;
