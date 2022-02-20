@@ -1,0 +1,35 @@
+2022-02-19 INFO  [main]: 2022-02-19T18:24:05.702490500
+2022-02-19 INFO  [main]: Task created
+2022-02-19 INFO  [main]: Task 'htr' was deleted
+2022-02-19 INFO  [main]: Task 'create1' was deleted
+2022-02-19 INFO  [main]: Task created
+2022-02-19 INFO  [main]: Task 'newtastname' was changed
+2022-02-19 INFO  [main]: Task created
+2022-02-19 INFO  [main]: Task created
+2022-02-19 INFO  [main]: Task 'sorte1' was changed
+2022-02-19 INFO  [main]: Task created
+2022-02-19 INFO  [main]: Task created
+2022-02-19 INFO  [main]: Task 'trtr' was deleted
+2022-02-19 INFO  [main]: Task created
+2022-02-19 INFO  [main]: Task 'r5' was deleted
+2022-02-19 INFO  [main]: Task 'deletetask' was created
+2022-02-19 INFO  [main]: Task 'deletetask' was deleted
+2022-02-19 INFO  [main]: Task 'changenamer1' was changed
+2022-02-19 INFO  [main]: Task 'changenamer1' was changed
+2022-02-19 INFO  [main]: Task 'changenamer1' was changed
+2022-02-19 INFO  [main]: Task 'dr' was name changed -> data
+2022-02-19 INFO  [main]: Task 'data' was changed
+2022-02-19 INFO  [main]: Task 'data' was date changed -> 2022-04-17T10:00
+2022-02-19 INFO  [main]: Task 'data' was changed
+2022-02-19 INFO  [main]: Task 'data' active = 1
+2022-02-19 INFO  [main]: Task 'data' was changed
+2022-02-19 INFO  [main]: Task 'data' was date changed -> 2022-04-17T10:00
+2022-02-19 INFO  [main]: Task 'data' was changed
+2022-02-20 INFO  [main]: Task 'data' was deleted
+2022-02-20 INFO  [main]: Task 'r3' was deleted
+2022-02-20 INFO  [main]: Task 'htrhrt' was created
+2022-02-20 INFO  [main]: Task 'newTask' was created
+2022-02-20 INFO  [main]: Task 'inr' was name changed -> namenew
+2022-02-20 INFO  [main]: Task 'namenew' was changed in datafile
+2022-02-20 INFO  [main]: Task 'r3' was deleted
+2022-02-20 INFO  [main]: Task 'data' was deleted

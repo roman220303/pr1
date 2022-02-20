@@ -392,7 +392,6 @@ public class Controller implements Runnable {
                 break;
             case "1":
                 SortedMap<LocalDateTime, Set<Task>> calendar7 = Tasks.calendar(list, LocalDateTime.now(), LocalDateTime.now().plusDays(7));
-                view.printCalendar(calendar7);
                 try{
                     view.printCalendar(calendar7);
                 } catch (NullPointerException e){
