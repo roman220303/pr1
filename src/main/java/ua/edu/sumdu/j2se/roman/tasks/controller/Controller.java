@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class Controller implements Runnable {
-    private Task model;
+    private Task model = new Task();
     private AbstractTaskList list = new LinkedTaskList();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final File file = new File("task.txt");
