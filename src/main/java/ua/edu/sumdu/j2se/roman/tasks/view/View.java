@@ -14,7 +14,6 @@ public class View {
 
         System.out.println(menu);
 
-
     }
 
     public void displayList(AbstractTaskList list) {
@@ -44,6 +43,21 @@ public class View {
         String menu = "Меню\n" + "1 - На тиждень від сьогоднішнього дня\n" + "2 - Задати власний проміжок часу\n";
 
         System.out.println(menu);
+    }
+
+    public void makeMenuChanged(){
+        System.out.println("\n1. Назва");
+        System.out.println("2. Час");
+        System.out.println("3. Час початку");
+        System.out.println("4. Час закінчення");
+        System.out.println("5. Інтервал");
+        System.out.println("6. Зробіть його активним/неактивним");
+        System.out.print("Введіть свій варіант -> ");
+    }
+
+    public String keyboardReadWholeLn() {
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine();
     }
 
 }

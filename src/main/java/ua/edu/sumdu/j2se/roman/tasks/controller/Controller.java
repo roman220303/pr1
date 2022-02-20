@@ -38,7 +38,6 @@ public class Controller implements Runnable {
             String flag = scan.nextLine();
 
             switch (flag) {
-
                 case "1":
                     createTask();
                     runStartMenu();
@@ -102,11 +101,11 @@ public class Controller implements Runnable {
         System.out.println();
         System.out.print("Введіть назву задачі: ");
 
-        strTitle = keyboardReadWholeLn();
+        strTitle = view.keyboardReadWholeLn();
         this.model.setTitle(strTitle);
 
         System.out.print("\nВведіть час виконання задачі (yyyy-MM-dd HH:mm:ss): ");
-        strDate = keyboardReadWholeLn();
+        strDate = view.keyboardReadWholeLn();
 
         try {
             timech = LocalDateTime.parse(strDate, formatter);
@@ -116,12 +115,12 @@ public class Controller implements Runnable {
         }
         this.model.setTime(timech);
         System.out.print("\nВи хочете зробити завдання повторюваним (y/n) ? ");
-        str = keyboardReadWholeLn();
+        str = view.keyboardReadWholeLn();
 
         if (str.equals("y")) {
             this.model.setActive(true);
             System.out.print("\nВведіть час завершення завдання (yyyy-MM-dd HH:mm:ss): ");
-            strDate = keyboardReadWholeLn();
+            strDate = view.keyboardReadWholeLn();
             try {
                 timech = LocalDateTime.parse(strDate, formatter);
             } catch (DateTimeParseException e){
@@ -148,7 +147,7 @@ public class Controller implements Runnable {
     private void deleteTask(){
         String str;
         System.out.print("Яке завдання ви хочете видалити (введіть його назву)? ");
-        str = keyboardReadWholeLn();
+        str = view.keyboardReadWholeLn();
         boolean isDelete = false;
 
         for (Task i : list) {
@@ -170,11 +169,6 @@ public class Controller implements Runnable {
         }
     }
 
-    private String keyboardReadWholeLn() {
-        Scanner sc = new Scanner(System.in);
-        return sc.nextLine();
-    }
-
     private void changeTask(){
         String str;
         String strTitle;
@@ -183,29 +177,23 @@ public class Controller implements Runnable {
         System.out.println();
         System.out.println("Яке завдання ви хочете змінити (введіть його назву)? ");
 
-        String strn = keyboardReadWholeLn();
+        String strn = view.keyboardReadWholeLn();
 
         for (Task i : list) {
             if (strn.equals(i.getTitle())) {
-                System.out.println("\n1. Назва");
-                System.out.println("2. Час");
-                System.out.println("3. Час початку");
-                System.out.println("4. Час закінчення");
-                System.out.println("5. Інтервал");
-                System.out.println("6. Зробіть його активним/неактивним");
-                System.out.print("Введіть свій варіант -> ");
-                str = keyboardReadWholeLn();
+                view.makeMenuChanged();
+                str = view.keyboardReadWholeLn();
 
                 switch (str) {
                     case "1":
                         System.out.print("Введіть назву завдання: ");
-                        strTitle = keyboardReadWholeLn();
+                        strTitle = view.keyboardReadWholeLn();
                         i.setTitle(strTitle);
                         logger.info("Task \'" + strn + "\' was name changed -> " + strTitle);
                         break;
                     case "2":
                         System.out.print("\nВведіть дату виконання завдання (yyyy-MM-dd HH:mm:ss): ");
-                        strDate = keyboardReadWholeLn();
+                        strDate = view.keyboardReadWholeLn();
                         try {
                             timech = LocalDateTime.parse(strDate, formatter);
                         } catch (DateTimeParseException e){
@@ -218,7 +206,7 @@ public class Controller implements Runnable {
                         break;
                     case "3":
                         System.out.print("\nВведіть час початку завдання (yyyy-MM-dd HH:mm:ss):");
-                        strDate = keyboardReadWholeLn();
+                        strDate = view.keyboardReadWholeLn();
                         try {
                             timech = LocalDateTime.parse(strDate, formatter);
                         } catch (DateTimeParseException e){
@@ -235,7 +223,7 @@ public class Controller implements Runnable {
                         break;
                     case "4":
                         System.out.print("\nВведіть час завершення завдання (yyyy-MM-dd HH:mm:ss): ");
-                        strDate = keyboardReadWholeLn();
+                        strDate = view.keyboardReadWholeLn();
                         try {
                             timech = LocalDateTime.parse(strDate, formatter);
                         } catch (DateTimeParseException e){
@@ -256,7 +244,7 @@ public class Controller implements Runnable {
                         break;
                     case "6":
                         System.out.println("Введіть 1/0 (активувати = 1, деактивувати = 0):");
-                        str = keyboardReadWholeLn();
+                        str = view.keyboardReadWholeLn();
                         if (str.equals("1")) i.setActive(true);
                         else i.setActive(false);
                         logger.info("Task \'" + strn + "\' active = " + str);
@@ -293,7 +281,7 @@ public class Controller implements Runnable {
         Scanner sc = new Scanner(System.in);
         String str;
         System.out.print("\nВведіть час завершення завдання (yyyy-MM-dd HH:mm:ss): ");
-        strDate = keyboardReadWholeLn();
+        strDate = view.keyboardReadWholeLn();
         LocalDateTime end = LocalDateTime.now();
         try {
             end = LocalDateTime.parse(strDate,formatter);
@@ -302,7 +290,7 @@ public class Controller implements Runnable {
             createTask();
         }
         System.out.print("\nЗ якою частотою(день - 'd', година - 'h', хвилина - 'm', секунда - 's'): ");
-        str = keyboardReadWholeLn();
+        str = view.keyboardReadWholeLn();
         switch (str){
             case "d":
                 System.out.print("\nВведіть значення: ");
@@ -345,9 +333,9 @@ public class Controller implements Runnable {
         switch (scanchar){
             case "2":
                 System.out.print("\nВивести задачі, починаючи з (yyyy-MM-dd HH:mm:ss): ");
-                String start = keyboardReadWholeLn();
+                String start = view.keyboardReadWholeLn();
                 System.out.print("\nВивести задачі, по дату (yyyy-MM-dd HH:mm:ss): ");
-                String end = keyboardReadWholeLn();
+                String end = view.keyboardReadWholeLn();
                 SortedMap<LocalDateTime, Set<Task>> calendar = Tasks.calendar(list, LocalDateTime.parse(start, formatter), LocalDateTime.parse(end, formatter));
                 try{
                     view.printCalendar(calendar);
