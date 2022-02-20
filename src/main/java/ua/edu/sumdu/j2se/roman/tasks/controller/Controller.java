@@ -5,6 +5,7 @@ import ua.edu.sumdu.j2se.roman.tasks.model.*;
 import ua.edu.sumdu.j2se.roman.tasks.view.View;
 
 import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -14,18 +15,29 @@ public class Controller implements Runnable {
     private Task model = new Task();
     private AbstractTaskList list = new LinkedTaskList();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    private final File file = new File("task.txt");
+    private File file = new File("task.txt");
     private LocalDateTime timech;
     private View view = new View();
     private static final Logger logger = Logger.getLogger(Controller.class);
 
     public void run(){
-        try {
-            TaskIO.readBinary(list,file);
-        } catch (NullPointerException e) {
-            System.out.println("Проблеми з даними");
+        if(file.exists()){
+            try {
+                TaskIO.readBinary(list,file);
+            } catch (NullPointerException e) {
+                System.out.println("Проблеми з даними/NullPointerException");
+            }
+            runStartMenu();
         }
-        runStartMenu();
+        else{
+            file = new File("task.txt");
+            try {
+                if(file.createNewFile()) runStartMenu();
+            } catch (IOException e) {
+                System.out.println("Виникла проблема при створенні файлу даних");
+                logger.info("Виникла проблема при створенні файлу даних");
+            }
+        }
     }
 
     public void runStartMenu(){
