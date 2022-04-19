@@ -14,7 +14,7 @@ public class View {
     public void outMenu(){
 
         String menu = "Меню\n" + "1 - Додати нову задачу\n" + "2 - Змінити параметри задачі\n" + "3 - Видалити задачу\n"
-                + "4 - Переглянути всі наявні задачі\n" + "5 - Переглянути календар запланованих задач\n" + "ex - Вийти\n";
+                + "4 - Переглянути всі наявні задачі\n" + "5 - Сформувати календар задач(повідомлення) на певний період\n" + "ex - Вийти\n";
 
         System.out.println(menu);
 
@@ -37,11 +37,7 @@ public class View {
         if(!calendar.isEmpty()){
             for (Map.Entry<LocalDateTime, Set<Task>> item : calendar.entrySet()){
                 for (Task i : item.getValue()) {
-                    System.out.println(item.getKey() +
-                            " \'" +
-                            i.getTitle().substring(0, 1).toUpperCase() +
-                            i.getTitle().substring(1) +
-                            "\'");
+                    System.out.println("Час задачі - " + item.getKey() + " \' Назва задачі " + i.getTitle().substring(0, 1).toUpperCase() + i.getTitle().substring(1) + "\'");
                 }
             }
         }
@@ -57,7 +53,7 @@ public class View {
      * 2 - Задати власний проміжок часу
      */
     public void makeCalendarView(){
-        String menu = "Меню\n" + "1 - На тиждень від сьогоднішнього дня\n" + "2 - Задати власний проміжок часу\n";
+        String menu = "Меню\n" + "1 - На тиждень від сьогоднішнього дня\n" + "2 - Задати власний проміжок часу\n" + "3 - Через 10 хвилин\n";
 
         System.out.println(menu);
     }
