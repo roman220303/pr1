@@ -208,13 +208,23 @@ public class Controller implements Runnable {
         String strDate;
         Boolean isChanged = false;
 
+        Map <Task, Integer> ch = new HashMap<>();
+
+        int m = 1;
+
+        for (Task i : list){
+            ch.put(i,m);
+            m = m + 1;
+        }
+
         System.out.println();
-        System.out.print("Яке завдання ви хочете змінити (введіть його назву)? : ");
+        System.out.print("Яке завдання ви хочете змінити (введіть номер завдання)? : ");
 
-        String strn = view.keyboardReadWholeLn();
+        int strn = view.keyboardReadWholeInt();
 
-        for (Task i : list) {
-            if (strn.equals(i.getTitle())) {
+        for (Map.Entry<Task, Integer> entry : ch.entrySet()) {
+            int k = 0;
+            if (strn == entry.getValue()) {
                 view.makeMenuChanged();
                 str = view.keyboardReadWholeLn();
 
@@ -222,8 +232,8 @@ public class Controller implements Runnable {
                     case "1":
                         System.out.print("Введіть назву завдання: ");
                         strTitle = view.keyboardReadWholeLn();
-                        i.setTitle(strTitle);
-                        logger.info("Task \'" + strn + "\' was name changed -> " + strTitle);
+                        entry.getKey().setTitle(strTitle);
+                        logger.info("Task number\'" + strn + "\' was name changed -> " + strTitle);
                         break;
                     case "2":
                         System.out.print("\nВведіть дату виконання завдання (yyyy-MM-dd HH:mm): ");
@@ -234,9 +244,9 @@ public class Controller implements Runnable {
                             System.out.println("Неправильний формат дати. Увага! (yyyy-MM-dd HH:mm)");
                             changeTask();
                         }
-                        i.setTime(timech);
-                        i.setActive(i.isActive());
-                        logger.info("Task \'" + strn + "\' was date changed -> " + i.getTime());
+                        entry.getKey().setTime(timech);
+                        entry.getKey().setActive(entry.getKey().isActive());
+                        logger.info("Task number\'" + strn + "\' was date changed -> " + entry.getKey().getTime());
                         break;
                     case "3":
                         System.out.print("\nВведіть час початку завдання (yyyy-MM-dd HH:mm):");
@@ -247,13 +257,13 @@ public class Controller implements Runnable {
                             System.out.println("Неправильний формат дати. Увага! (yyyy-MM-dd HH:mm)");
                             changeTask();
                         }
-                        if (i.getStartTime().isAfter(timech))
-                            i.setTime(timech, i.getEndTime(), i.getRepeatInterval());
+                        if (entry.getKey().getStartTime().isAfter(timech))
+                            entry.getKey().setTime(timech, entry.getKey().getEndTime(), entry.getKey().getRepeatInterval());
                         else {
                             System.out.println("Не вдалося проаналізувати дату! Введіть правильну дату, будь ласка.");
                             changeTask();
                         }
-                        logger.info("Task \'" + strn + "\' was start date changed -> " + i.getStartTime());
+                        logger.info("Task number\'" + strn + "\' was start date changed -> " + entry.getKey().getStartTime());
                         break;
                     case "4":
                         System.out.print("\nВведіть час завершення завдання (yyyy-MM-dd HH:mm): ");
@@ -264,30 +274,30 @@ public class Controller implements Runnable {
                             System.out.println("Неправильний формат дати. Увага! (yyyy-MM-dd HH:mm)");
                             changeTask();
                         }
-                        if (i.getStartTime().isBefore(timech))
-                            i.setTime(i.getStartTime(), timech, i.getRepeatInterval());
+                        if (entry.getKey().getStartTime().isBefore(timech))
+                            entry.getKey().setTime(entry.getKey().getStartTime(), timech, entry.getKey().getRepeatInterval());
                         else {
                             System.out.println("Не вдалося проаналізувати дату! Введіть правильну дату, будь ласка.");
                             changeTask();
                         }
-                        logger.info("Task \'" + strn + "\' was end date changed -> " + i.getEndTime());
+                        logger.info("Task number\'" + strn + "\' was end date changed -> " + entry.getKey().getEndTime());
                         break;
                     case "5":
-                        makeInterval(i);
-                        logger.info("Task \'" + strn + "\' new interval");
+                        makeInterval(entry.getKey());
+                        logger.info("Task number\'" + strn + "\' new interval");
                         break;
                     case "6":
                         System.out.println("Введіть 1/0 (активувати = 1, деактивувати = 0):");
                         str = view.keyboardReadWholeLn();
-                        if (str.equals("1")) i.setActive(true);
-                        else i.setActive(false);
+                        if (str.equals("1")) entry.getKey().setActive(true);
+                        else entry.getKey().setActive(false);
                         logger.info("Task \'" + strn + "\' active = " + str);
                         break;
                     default:
                         System.out.println("Такої задачі не знайдено");
                         runStartMenu();
                 }
-                model = i;
+                model = entry.getKey();
                 acceptChanges();
                 logger.info("Task \'" + model.getTitle() + "\' was changed in datafile");
                 isChanged = true;

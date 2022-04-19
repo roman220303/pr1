@@ -67,3 +67,5 @@
 2022-04-19 INFO  [main]: Task 'нова' was created
 2022-04-19 INFO  [main]: Task 'новазадача2' was created
 2022-04-19 INFO  [main]: Task 'yjd' was created
+2022-04-19 INFO  [main]: Task '1' was name changed -> ok
+2022-04-19 INFO  [main]: Task 'ok' was changed in datafile

@@ -25,8 +25,11 @@ public class View {
      * @param list
      */
     public void displayList(AbstractTaskList list) {
-        for (Task i : list)
-            System.out.println(i);
+        int k = 1;
+        for (Task i : list){
+            System.out.println(k + " - " + i);
+            k++;
+        }
     }
 
     /**
@@ -78,6 +81,11 @@ public class View {
     public String keyboardReadWholeLn() {
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
+    }
+
+    public int keyboardReadWholeInt() {
+        Scanner sc = new Scanner(System.in);
+        return sc.nextInt();
     }
 
 }
