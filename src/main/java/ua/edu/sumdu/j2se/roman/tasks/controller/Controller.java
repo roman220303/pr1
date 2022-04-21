@@ -114,6 +114,16 @@ public class Controller implements Runnable {
         return list.size() != 0;
     }
 
+
+
+
+    public AbstractTaskList getModelList() {
+        return list;
+    }
+
+
+
+
     /**
      * Метод, який додає задачу до списку задач.
      */
