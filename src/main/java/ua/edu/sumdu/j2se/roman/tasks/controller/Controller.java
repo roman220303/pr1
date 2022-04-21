@@ -30,12 +30,16 @@ public class Controller implements Runnable {
             } catch (NullPointerException e) {
                 System.out.println("Проблеми з даними/NullPointerException");
             }
+            Notification notify = new Notification(list);
+            notify.run();
             runStartMenu();
         }
         else{
             file = new File("task.txt");
             try {
-                if(file.createNewFile()) runStartMenu();
+                if(file.createNewFile()) {
+                    runStartMenu();
+                }
             } catch (IOException e) {
                 System.out.println("Виникла проблема при створенні файлу даних");
                 logger.info("Виникла проблема при створенні файлу даних");

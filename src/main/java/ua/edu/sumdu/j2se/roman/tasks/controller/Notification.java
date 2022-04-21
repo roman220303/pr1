@@ -1,10 +1,9 @@
 package ua.edu.sumdu.j2se.roman.tasks.controller;
 
 import ua.edu.sumdu.j2se.roman.tasks.model.*;
+import ua.edu.sumdu.j2se.roman.tasks.view.View;
 
-import java.io.File;
 import java.time.LocalDateTime;
-import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 
@@ -14,11 +13,11 @@ public class Notification extends Thread {
 
     private Thread thread;
 
-    private File file;
+    private View view = new View();
 
-    public Notification(AbstractTaskList model, File file) {
+
+    public Notification(AbstractTaskList model) {
         list = model;
-        this.file = file;
         thread = new Thread(this, "Task notification");
         thread.setDaemon(true);
         thread.start();
@@ -27,24 +26,19 @@ public class Notification extends Thread {
      * Метод відповідає за показ сповіщень про завдання, які необхідно виконати
      */
     private void notifyN() {
-        SortedMap<LocalDateTime, Set<Task>> repeatedTasks;
-
         LocalDateTime prev = LocalDateTime.now();
-        LocalDateTime next = LocalDateTime.now().plusHours(1);
+        LocalDateTime next = LocalDateTime.now().plusHours(2);
 
-        repeatedTasks = Tasks.calendar(list, prev, next);
-        for (Map.Entry<LocalDateTime, Set<Task>> item : repeatedTasks.entrySet()) {
-            System.out.println("");
-            System.out.println("Повідомлення на наступну годину" +
-                    item.getKey().toString() + "\nЗадачі: ");
-            for (Task j : item.getValue()) {
-                System.out.print(" \'" +
-                        j.getTitle().substring(0, 1).toUpperCase() +
-                        j.getTitle().substring(1) +
-                        "\' ");
-            }
-            System.out.println("");
+        System.out.println(list.size());
+
+        SortedMap<LocalDateTime, Set<Task>> repeatedTasks = Tasks.calendar(list, prev, next);
+
+        try {
+            view.printCalendar(repeatedTasks);
+        } catch (NullPointerException e){
+            System.out.println("Задач від " + prev + " до " + next + " немає");
         }
+
 
     }
     /**
@@ -53,10 +47,9 @@ public class Notification extends Thread {
     @Override
     public void run() {
         try {
-            TaskIO.readText(list, file);
             notifyN();
             try {
-                sleep(100000);
+                sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

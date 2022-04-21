@@ -37,6 +37,7 @@ public class View {
      * @param calendar
      */
     public void printCalendar(SortedMap<LocalDateTime, Set<Task>> calendar) {
+        System.out.println("print");
         if(!calendar.isEmpty()){
             for (Map.Entry<LocalDateTime, Set<Task>> item : calendar.entrySet()){
                 for (Task i : item.getValue()) {
