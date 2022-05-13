@@ -37,11 +37,10 @@ public class View {
      * @param calendar
      */
     public void printCalendar(SortedMap<LocalDateTime, Set<Task>> calendar) {
-        System.out.println("print");
         if(!calendar.isEmpty()){
             for (Map.Entry<LocalDateTime, Set<Task>> item : calendar.entrySet()){
                 for (Task i : item.getValue()) {
-                    System.out.println("Час задачі - " + item.getKey() + " \' Назва задачі " + i.getTitle().substring(0, 1).toUpperCase() + i.getTitle().substring(1) + "\'");
+                    System.out.println("Задачу " + i.getTitle().substring(0, 1).toUpperCase() + i.getTitle().substring(1) + " потрібно виконати: " + item.getKey());
                 }
             }
         }

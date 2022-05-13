@@ -11,17 +11,14 @@ public class Notification extends Thread {
 
     private AbstractTaskList list = new LinkedTaskList();
 
-    private Thread thread;
-
-    private View view = new View();
-
+    private final View view = new View();
 
     public Notification(AbstractTaskList model) {
         list = model;
-        thread = new Thread(this, "Task notification");
+        Thread thread = new Thread(this, "Task notification");
         thread.setDaemon(true);
-        thread.start();
     }
+
     /**
      * Метод відповідає за показ сповіщень про завдання, які необхідно виконати
      */
@@ -29,32 +26,27 @@ public class Notification extends Thread {
         LocalDateTime prev = LocalDateTime.now();
         LocalDateTime next = LocalDateTime.now().plusHours(2);
 
-        System.out.println(list.size());
-
         SortedMap<LocalDateTime, Set<Task>> repeatedTasks = Tasks.calendar(list, prev, next);
 
         try {
+            System.out.println("Сповіщення про виконання задач");
             view.printCalendar(repeatedTasks);
+            System.out.println("");
         } catch (NullPointerException e){
-            System.out.println("Задач від " + prev + " до " + next + " немає");
+            System.out.println("Задач, які потрібно скоро виконати немає\n");
         }
 
-
     }
+
     /**
-     * Основний метод у класі, який запускає потік сповіщень
+     * Метод run() у класі, який запускає потік сповіщень
      */
     @Override
     public void run() {
         try {
             notifyN();
-            try {
-                sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Проблема з сповіщеннями");
         }
     }
 

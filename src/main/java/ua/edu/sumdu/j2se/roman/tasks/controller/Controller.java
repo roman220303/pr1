@@ -30,8 +30,6 @@ public class Controller implements Runnable {
             } catch (NullPointerException e) {
                 System.out.println("Проблеми з даними/NullPointerException");
             }
-            Notification notify = new Notification(list);
-            notify.run();
             runStartMenu();
         }
         else{
@@ -51,6 +49,8 @@ public class Controller implements Runnable {
      * Метод, який дає функціональність додати/змінити/видалити/переглянути задачі.
      */
     public void runStartMenu(){
+        Notification notify = new Notification(list);
+        notify.run();
         Scanner scan = new Scanner(System.in);
         View view = new View();
         view.outMenu();
@@ -62,12 +62,14 @@ public class Controller implements Runnable {
             switch (flag) {
                 case "1":
                     createTask();
+                    System.out.println();
                     runStartMenu();
                     break;
                 case "2":
                     view.displayList(list);
                     if(checkList(list)) changeTask();
                     else System.out.println("Задач немає");
+                    System.out.println();
                     runStartMenu();
                     break;
 
@@ -75,18 +77,21 @@ public class Controller implements Runnable {
                     view.displayList(list);
                     if(checkList(list)) deleteTask();
                     else System.out.println("Задач немає");
+                    System.out.println();
                     runStartMenu();
                     break;
 
                 case "4":
                     if(checkList(list)) view.displayList(list);
                     else System.out.println("Задач немає");
+                    System.out.println();
                     runStartMenu();
                     break;
 
                 case "5":
                     if(checkList(list)) makeCalendar();
                     else System.out.println("Задач немає");
+                    System.out.println();
                     runStartMenu();
                     break;
 

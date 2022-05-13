@@ -36,7 +36,7 @@ public class Tasks {
     public static SortedMap<LocalDateTime, Set<Task>> calendar(Iterable<Task> tasks, LocalDateTime start, LocalDateTime end) {
         SortedMap<LocalDateTime, Set<Task>> calendar = new TreeMap<>();
         for (Task task: tasks) {
-                LocalDateTime holder = task.nextTimeAfter(start);
+            LocalDateTime holder = task.nextTimeAfter(start);
                 while (holder != null && !holder.isAfter(end)){
                     if(calendar.containsKey(holder)){
                         calendar.get(holder).add(task); //якщо дата вже є, додаємо задачу

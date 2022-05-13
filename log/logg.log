@@ -72,3 +72,14 @@
 2022-04-21 INFO  [main]: Task 'novazad' was created
 2022-04-21 INFO  [main]: Task 'задача' was created
 2022-04-21 INFO  [main]: Task 'zadacha1' was created
+2022-05-13 INFO  [main]: Task 'zadacha' was created
+2022-05-13 INFO  [main]: Task 'task1' was created
+2022-05-13 INFO  [main]: Task 'task2' was created
+2022-05-13 INFO  [main]: Task 'task' was created
+2022-05-13 INFO  [main]: Task number'1' was name changed -> задача1
+2022-05-13 INFO  [main]: Task 'задача1' was changed in datafile
+2022-05-13 INFO  [main]: Task '2' active = 0
+2022-05-13 INFO  [main]: Task 'task2' was changed in datafile
+2022-05-13 INFO  [main]: Task 'novazad' was created
+2022-05-13 INFO  [main]: Task 'newnewnew' was created
+2022-05-13 INFO  [main]: Task 'задача1' was deleted
