@@ -83,3 +83,13 @@
 2022-05-13 INFO  [main]: Task 'novazad' was created
 2022-05-13 INFO  [main]: Task 'newnewnew' was created
 2022-05-13 INFO  [main]: Task 'задача1' was deleted
+2022-05-15 INFO  [main]: Task 'newterye' was created
+2022-05-15 INFO  [main]: Task 'concrt' was created
+2022-05-15 INFO  [main]: Task '2' active = 0
+2022-05-15 INFO  [main]: Task 'task' was changed in datafile
+2022-05-15 INFO  [main]: Task 'task2' was deleted
+2022-05-15 INFO  [main]: Task number'1' was name changed -> tasknewst
+2022-05-15 INFO  [main]: Task 'tasknewst' was changed in datafile
+2022-05-15 INFO  [main]: Task number'1' was start date changed -> 2022-05-16T15:00
+2022-05-15 INFO  [main]: Task 'tasknewst' was changed in datafile
+2022-05-15 INFO  [main]: Task 'ioioio' was created

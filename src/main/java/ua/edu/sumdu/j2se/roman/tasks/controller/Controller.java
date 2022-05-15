@@ -27,6 +27,7 @@ public class Controller implements Runnable {
         if(file.exists()){
             try {
                 TaskIO.readBinary(list,file);
+
             } catch (NullPointerException e) {
                 System.out.println("Проблеми з даними/NullPointerException");
             }
@@ -49,8 +50,6 @@ public class Controller implements Runnable {
      * Метод, який дає функціональність додати/змінити/видалити/переглянути задачі.
      */
     public void runStartMenu(){
-        Notification notify = new Notification(list);
-        notify.run();
         Scanner scan = new Scanner(System.in);
         View view = new View();
         view.outMenu();

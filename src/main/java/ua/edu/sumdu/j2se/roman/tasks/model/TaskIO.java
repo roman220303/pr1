@@ -147,11 +147,14 @@ public class TaskIO {
      * @param tasks
      * @param file
      */
-    public static void readText(AbstractTaskList tasks, File file){
-        try(FileInputStream fileInputStream = new FileInputStream(file)){
-            read(tasks,fileInputStream);
-        } catch (IOException e){
+    public static void readText(AbstractTaskList tasks, File file) throws Exception {
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        try {
+            read(tasks, bufferedReader);
+        } catch (Exception e) {
             e.printStackTrace();
         }
+        bufferedReader.close();
     }
+
 }
