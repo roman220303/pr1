@@ -51,6 +51,22 @@ public class View {
     }
 
     /**
+     * Пустий метод, який виводе задачі, які є активними
+     * @param calendar
+     */
+    public void printNotificator(SortedMap<LocalDateTime, Set<Task>> calendar) {
+        if(!calendar.isEmpty()){
+            for (Map.Entry<LocalDateTime, Set<Task>> item : calendar.entrySet()){
+                for (Task i : item.getValue()) {
+                    if(i.isActive()) System.out.println(i.getTitle());
+                }
+            }
+
+        }
+
+    }
+
+    /**
      * Пустий метод, який виводе меню вибору потрібного нам календаря.
      * 1 - На тиждень від сьогоднішнього дня
      * 2 - Задати власний проміжок часу
