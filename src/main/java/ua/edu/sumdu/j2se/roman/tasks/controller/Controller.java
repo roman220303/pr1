@@ -19,6 +19,7 @@ public class Controller implements Runnable {
     private LocalDateTime timech;
     private View view = new View();
     private static final Logger logger = Logger.getLogger(Controller.class);
+    Notification notification;
 
     /**
      * Метод, який зчитує дані з файлу. Якщо такого не існує, то створюється новий файл з іменем "task.txt".
@@ -30,6 +31,12 @@ public class Controller implements Runnable {
 
             } catch (NullPointerException e) {
                 System.out.println("Проблеми з даними/NullPointerException");
+            }
+            Notification notification = new Notification(list);
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
             runStartMenu();
         }
@@ -54,8 +61,9 @@ public class Controller implements Runnable {
         View view = new View();
         view.outMenu();
         boolean isQuit = false;
+        checkTask();
         while (!isQuit) {
-            System.out.print("Вибір -> ");
+            System.out.print("\nВибір -> ");
             String flag = scan.nextLine();
 
             switch (flag) {
@@ -122,14 +130,19 @@ public class Controller implements Runnable {
         return list.size() != 0;
     }
 
-
-
-
-    public AbstractTaskList getModelList() {
-        return list;
+    /**
+     * Метод, який робить не активними задачі, які вже виконані за часом.
+     */
+    private void checkTask(){
+        for (Task task: list) {
+            if(!task.isRepeated() && task.getTime().isBefore(LocalDateTime.now())){
+                task.setActive(false);
+            }
+            if(task.isRepeated() && task.getEndTime().isBefore(LocalDateTime.now())){
+                task.setActive(false);
+            }
+        }
     }
-
-
 
 
     /**
@@ -159,6 +172,12 @@ public class Controller implements Runnable {
         model1.setTime(timech);
         System.out.print("\nВи хочете зробити завдання повторюваним (y/n) ? ");
         str = view.keyboardReadWholeLn();
+
+        while (!str.equals("y") && !str.equals("n")){
+            System.out.println("Неправильний ввід");
+            System.out.print("\nВи хочете зробити завдання повторюваним (y/n) ? ");
+            str = view.keyboardReadWholeLn();
+        }
 
         if (str.equals("y")) {
             model1.setActive(true);
@@ -241,7 +260,7 @@ public class Controller implements Runnable {
         int strn = view.keyboardReadWholeInt();
 
         for (Map.Entry<Task, Integer> entry : ch.entrySet()) {
-            int k = 0;
+            //int k = 0;
             if (strn == entry.getValue()) {
                 view.makeMenuChanged();
                 str = view.keyboardReadWholeLn();
@@ -251,6 +270,7 @@ public class Controller implements Runnable {
                         System.out.print("Введіть назву завдання: ");
                         strTitle = view.keyboardReadWholeLn();
                         entry.getKey().setTitle(strTitle);
+                        if(entry.getKey().isRepeated()) entry.getKey().setActive(true);
                         logger.info("Task number\'" + strn + "\' was name changed -> " + strTitle);
                         break;
                     case "2":
@@ -264,6 +284,7 @@ public class Controller implements Runnable {
                         }
                         entry.getKey().setTime(timech);
                         entry.getKey().setActive(entry.getKey().isActive());
+                        if(entry.getKey().isRepeated()) entry.getKey().setActive(true);
                         logger.info("Task number\'" + strn + "\' was date changed -> " + entry.getKey().getTime());
                         break;
                     case "3":
@@ -275,8 +296,10 @@ public class Controller implements Runnable {
                             System.out.println("Неправильний формат дати. Увага! (yyyy-MM-dd HH:mm)");
                             changeTask();
                         }
-                        if (entry.getKey().getStartTime().isAfter(timech))
+                        if (entry.getKey().getStartTime().isAfter(timech)) {
                             entry.getKey().setTime(timech, entry.getKey().getEndTime(), entry.getKey().getRepeatInterval());
+                            if(entry.getKey().isRepeated()) entry.getKey().setActive(true);
+                        }
                         else {
                             System.out.println("Не вдалося проаналізувати дату! Введіть правильну дату, будь ласка.");
                             changeTask();
@@ -292,8 +315,10 @@ public class Controller implements Runnable {
                             System.out.println("Неправильний формат дати. Увага! (yyyy-MM-dd HH:mm)");
                             changeTask();
                         }
-                        if (entry.getKey().getStartTime().isBefore(timech))
+                        if (entry.getKey().getStartTime().isBefore(timech)){
                             entry.getKey().setTime(entry.getKey().getStartTime(), timech, entry.getKey().getRepeatInterval());
+                            if(entry.getKey().isRepeated()) entry.getKey().setActive(true);
+                        }
                         else {
                             System.out.println("Не вдалося проаналізувати дату! Введіть правильну дату, будь ласка.");
                             changeTask();
@@ -302,6 +327,7 @@ public class Controller implements Runnable {
                         break;
                     case "5":
                         makeInterval(entry.getKey());
+                        if(entry.getKey().isRepeated()) entry.getKey().setActive(true);
                         logger.info("Task number\'" + strn + "\' new interval");
                         break;
                     case "6":
@@ -312,7 +338,7 @@ public class Controller implements Runnable {
                         logger.info("Task \'" + strn + "\' active = " + str);
                         break;
                     default:
-                        System.out.println("Такої задачі не знайдено");
+                        System.out.println("Невірно вказаний пункт");
                         runStartMenu();
                 }
                 model = entry.getKey();
@@ -349,35 +375,24 @@ public class Controller implements Runnable {
         int minutes;
         int seconds;
         int time = 0;
-        int interval;
-        Scanner sc = new Scanner(System.in);
         String str;
-        LocalDateTime end = LocalDateTime.now();
         System.out.print("\nЗ якою частотою(день - 'd', година - 'h', хвилина - 'm', секунда - 's'): ");
         str = view.keyboardReadWholeLn();
         switch (str){
             case "d":
-                System.out.print("\nВведіть значення: ");
-                interval = sc.nextInt();
-                days = interval * 86400;
+                days = 86400;
                 time += days;
                 break;
             case "h":
-                System.out.print("\nВведіть значення: ");
-                interval = sc.nextInt();
-                hours = interval * 3600;
+                hours = 3600;
                 time += hours;
                 break;
             case "m":
-                System.out.print("\nВведіть значення: ");
-                interval = sc.nextInt();
-                minutes = interval * 60;
+                minutes = 60;
                 time += minutes;
                 break;
             case "s":
-                System.out.print("\nВведіть значення: ");
-                interval = sc.nextInt();
-                seconds = interval;
+                seconds = 1;
                 time += seconds;
                 break;
 
@@ -388,6 +403,7 @@ public class Controller implements Runnable {
 
         }
         task.setTime(task.getStartTime(), task.getEndTime(), time);
+        task.setActive(true);
     }
 
     /**
@@ -414,11 +430,16 @@ public class Controller implements Runnable {
                 String start = view.keyboardReadWholeLn();
                 System.out.print("\nВивести задачі, по дату (yyyy-MM-dd HH:mm): ");
                 String end = view.keyboardReadWholeLn();
-                SortedMap<LocalDateTime, Set<Task>> calendar = Tasks.calendar(list, LocalDateTime.parse(start, formatter), LocalDateTime.parse(end, formatter));
                 try{
-                    view.printCalendar(calendar);
-                } catch (NullPointerException e){
-                    System.out.println("Активних задач на цей проміжок часу немає");
+                    SortedMap<LocalDateTime, Set<Task>> calendar = Tasks.calendar(list, LocalDateTime.parse(start, formatter), LocalDateTime.parse(end, formatter));
+                    try{
+                        view.printCalendar(calendar);
+                    } catch (NullPointerException e){
+                        System.out.println("Активних задач на цей проміжок часу немає");
+                    }
+                } catch (DateTimeParseException e){
+                    System.out.println("Неправильний формат дати!");
+                    makeCalendar();
                 }
                 break;
             case "3":
@@ -429,6 +450,8 @@ public class Controller implements Runnable {
                     System.out.println("Активних задач на цей проміжок часу немає");
                 }
                 break;
+            default:
+                System.out.println("Невірно вказаний пункт");
         }
     }
 

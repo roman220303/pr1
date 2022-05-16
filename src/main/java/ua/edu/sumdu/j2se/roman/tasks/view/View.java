@@ -4,6 +4,7 @@ import ua.edu.sumdu.j2se.roman.tasks.model.AbstractTaskList;
 import ua.edu.sumdu.j2se.roman.tasks.model.Task;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class View {
@@ -14,7 +15,7 @@ public class View {
     public void outMenu(){
 
         String menu = "Меню\n" + "1 - Додати нову задачу\n" + "2 - Змінити параметри задачі\n" + "3 - Видалити задачу\n"
-                + "4 - Переглянути всі наявні задачі\n" + "5 - Сформувати календар задач(повідомлення) на певний період\n" + "ex - Вийти\n";
+                + "4 - Переглянути всі наявні задачі\n" + "5 - Сформувати календар задач на певний період\n" + "ex - Вийти\n";
 
         System.out.println(menu);
 
@@ -40,7 +41,7 @@ public class View {
         if(!calendar.isEmpty()){
             for (Map.Entry<LocalDateTime, Set<Task>> item : calendar.entrySet()){
                 for (Task i : item.getValue()) {
-                    System.out.println("Задачу " + i.getTitle() + " потрібно виконати: " + item.getKey());
+                    System.out.println("Задачу " + i.getTitle() + " потрібно виконати: " + item.getKey().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
                 }
             }
         }
@@ -58,7 +59,7 @@ public class View {
         if(!calendar.isEmpty()){
             for (Map.Entry<LocalDateTime, Set<Task>> item : calendar.entrySet()){
                 for (Task i : item.getValue()) {
-                    if(i.isActive()) System.out.println(i.getTitle());
+                    if(i.isActive()) System.out.print("\n [" + i.getTitle() + "] ");
                 }
             }
 

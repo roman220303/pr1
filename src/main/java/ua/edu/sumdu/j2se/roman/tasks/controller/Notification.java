@@ -3,7 +3,6 @@ package ua.edu.sumdu.j2se.roman.tasks.controller;
 import ua.edu.sumdu.j2se.roman.tasks.model.*;
 import ua.edu.sumdu.j2se.roman.tasks.view.View;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.SortedMap;
@@ -17,10 +16,9 @@ public class Notification implements Runnable {
 
     private View view = new View();
 
-    private File file;
-
-    public Notification() {
+    public Notification(AbstractTaskList list) {
         thread = new Thread(this);
+        this.list = list;
         thread.setDaemon(true);
         thread.start();
     }
@@ -47,9 +45,8 @@ public class Notification implements Runnable {
     @Override
     public void run() {
         while (true) {
-            file = new File("task.txt");
-            TaskIO.readBinary(list,file);
             notifyN();
+            System.out.println("\n");
             try {
                 // 60 * 1000
                 thread.sleep(60000);

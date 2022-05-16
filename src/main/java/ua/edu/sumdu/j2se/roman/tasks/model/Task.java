@@ -1,6 +1,7 @@
 package ua.edu.sumdu.j2se.roman.tasks.model;
 
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.time.LocalDateTime;
 
@@ -40,7 +41,7 @@ public class Task implements Cloneable, Serializable {
     public String toString() {
         return "Task{" +
                 "title='" + title + '\'' +
-                ", time=" + time +
+                ", time=" + time.format(DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy")) +
                 ", start=" + start +
                 ", end=" + end +
                 ", interval=" + interval +
@@ -209,7 +210,7 @@ public class Task implements Cloneable, Serializable {
     /**
      * метод, що повертає час наступного виконання задачі
      * після вказаного часу current, якщо після вказаного часу задача не виконується, то
-     * метод має повертати -1.
+     * метод має повертати null.
      * @param current
      * @return
      */
