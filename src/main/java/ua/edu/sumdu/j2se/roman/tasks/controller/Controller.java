@@ -14,12 +14,11 @@ import java.util.*;
 public class Controller implements Runnable {
     private Task model = new Task();
     private AbstractTaskList list = new LinkedTaskList();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private File file = new File("task.txt");
     private LocalDateTime timech;
     private View view = new View();
     private static final Logger logger = Logger.getLogger(Controller.class);
-    Notification notification;
 
     /**
      * Метод, який зчитує дані з файлу. Якщо такого не існує, то створюється новий файл з іменем "task.txt".
