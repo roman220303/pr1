@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.roman.tasks;
+package ua.edu.sumdu.j2se.roman.tasks.model;
 
 public class TaskListFactory {
     public static AbstractTaskList createTaskList(ListTypes.types type){

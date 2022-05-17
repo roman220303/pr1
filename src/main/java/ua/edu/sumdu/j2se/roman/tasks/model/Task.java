@@ -1,6 +1,7 @@
-package ua.edu.sumdu.j2se.roman.tasks;
+package ua.edu.sumdu.j2se.roman.tasks.model;
 
 import java.io.Serializable;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.time.LocalDateTime;
 
@@ -19,6 +20,10 @@ public class Task implements Cloneable, Serializable {
     private boolean active;         //чи активна задача
     private boolean isRepeated;     //чи повторюється задача
 
+
+    public Task() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -36,7 +41,7 @@ public class Task implements Cloneable, Serializable {
     public String toString() {
         return "Task{" +
                 "title='" + title + '\'' +
-                ", time=" + time +
+                ", time=" + time.format(DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy")) +
                 ", start=" + start +
                 ", end=" + end +
                 ", interval=" + interval +
@@ -60,7 +65,7 @@ public class Task implements Cloneable, Serializable {
         this.title = title;
         if(time == null) throw new IllegalArgumentException(time + " < 0");
         else this.time = time;
-        active = false;
+        active = time.isBefore(LocalDateTime.now());
         isRepeated = false;
     }
 
@@ -80,7 +85,7 @@ public class Task implements Cloneable, Serializable {
             this.end = end;
             this.interval = interval;
         }
-        active = false;
+        active = start.isBefore(LocalDateTime.now());
         isRepeated = true;
     }
 
@@ -134,6 +139,7 @@ public class Task implements Cloneable, Serializable {
     public void setTime(LocalDateTime time){
         if(isRepeated) isRepeated = false;
         this.time = time;
+        active = time.isAfter(LocalDateTime.now());
     }
 
     /**
@@ -186,6 +192,7 @@ public class Task implements Cloneable, Serializable {
         if (!isRepeated){
             isRepeated = true;
         }
+        active = start.isAfter(LocalDateTime.now());
         this.start = start;
         this.end = end;
         this.interval = interval;
@@ -203,7 +210,7 @@ public class Task implements Cloneable, Serializable {
     /**
      * метод, що повертає час наступного виконання задачі
      * після вказаного часу current, якщо після вказаного часу задача не виконується, то
-     * метод має повертати -1.
+     * метод має повертати null.
      * @param current
      * @return
      */
