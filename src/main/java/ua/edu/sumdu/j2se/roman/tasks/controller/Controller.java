@@ -30,11 +30,13 @@ public class Controller implements Runnable {
 
             } catch (NullPointerException e) {
                 System.out.println("Проблеми з даними/NullPointerException");
+                logger.error("Проблеми з даними/NullPointerException");
             }
             Notification notification = new Notification(list);
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
+                logger.error("Проблема з потоком/InterruptedException");
                 e.printStackTrace();
             }
             runStartMenu();
@@ -47,7 +49,7 @@ public class Controller implements Runnable {
                 }
             } catch (IOException e) {
                 System.out.println("Виникла проблема при створенні файлу даних");
-                logger.info("Виникла проблема при створенні файлу даних");
+                logger.error("Виникла проблема при створенні файлу даних");
             }
         }
     }
