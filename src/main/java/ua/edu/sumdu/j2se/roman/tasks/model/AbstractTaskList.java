@@ -1,4 +1,4 @@
-package ua.edu.sumdu.j2se.roman.tasks;
+package ua.edu.sumdu.j2se.roman.tasks.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-abstract public class AbstractTaskList extends TaskListFactory  implements Iterable<Task>, Serializable {
+abstract public class AbstractTaskList extends TaskListFactory implements Iterable<Task>, Serializable {
     public abstract Stream<Task> getStream();
     public abstract void add(Task task);
     public abstract Task getTask(int index)  throws Throwable;
@@ -15,6 +15,14 @@ abstract public class AbstractTaskList extends TaskListFactory  implements Itera
     private ListTypes.types type;
 
 
+    /**
+     * метод, що повертає
+     * підмножину задач, які заплановані на виконання хоча б раз після часу from і не пізніше ніж to.
+     * @param from
+     * @param to
+     * @return
+     * @throws Throwable
+     */
     public final AbstractTaskList incoming(LocalDateTime from, LocalDateTime to) throws Throwable{
         if(size() == 0) throw new Exception("Немає задач");
         AbstractTaskList list = new LinkedTaskList();
@@ -39,4 +47,8 @@ abstract public class AbstractTaskList extends TaskListFactory  implements Itera
     }
 
 
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

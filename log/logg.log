@@ -1,0 +1,137 @@
+2022-02-19 INFO  [main]: 2022-02-19T18:24:05.702490500
+2022-02-19 INFO  [main]: Task created
+2022-02-19 INFO  [main]: Task 'htr' was deleted
+2022-02-19 INFO  [main]: Task 'create1' was deleted
+2022-02-19 INFO  [main]: Task created
+2022-02-19 INFO  [main]: Task 'newtastname' was changed
+2022-02-19 INFO  [main]: Task created
+2022-02-19 INFO  [main]: Task created
+2022-02-19 INFO  [main]: Task 'sorte1' was changed
+2022-02-19 INFO  [main]: Task created
+2022-02-19 INFO  [main]: Task created
+2022-02-19 INFO  [main]: Task 'trtr' was deleted
+2022-02-19 INFO  [main]: Task created
+2022-02-19 INFO  [main]: Task 'r5' was deleted
+2022-02-19 INFO  [main]: Task 'deletetask' was created
+2022-02-19 INFO  [main]: Task 'deletetask' was deleted
+2022-02-19 INFO  [main]: Task 'changenamer1' was changed
+2022-02-19 INFO  [main]: Task 'changenamer1' was changed
+2022-02-19 INFO  [main]: Task 'changenamer1' was changed
+2022-02-19 INFO  [main]: Task 'dr' was name changed -> data
+2022-02-19 INFO  [main]: Task 'data' was changed
+2022-02-19 INFO  [main]: Task 'data' was date changed -> 2022-04-17T10:00
+2022-02-19 INFO  [main]: Task 'data' was changed
+2022-02-19 INFO  [main]: Task 'data' active = 1
+2022-02-19 INFO  [main]: Task 'data' was changed
+2022-02-19 INFO  [main]: Task 'data' was date changed -> 2022-04-17T10:00
+2022-02-19 INFO  [main]: Task 'data' was changed
+2022-02-20 INFO  [main]: Task 'data' was deleted
+2022-02-20 INFO  [main]: Task 'r3' was deleted
+2022-02-20 INFO  [main]: Task 'htrhrt' was created
+2022-02-20 INFO  [main]: Task 'newTask' was created
+2022-02-20 INFO  [main]: Task 'inr' was name changed -> namenew
+2022-02-20 INFO  [main]: Task 'namenew' was changed in datafile
+2022-02-20 INFO  [main]: Task 'r3' was deleted
+2022-02-20 INFO  [main]: Task 'data' was deleted
+2022-02-20 INFO  [main]: Task 'null' was changed in datafile
+2022-02-20 INFO  [main]: Task 'tasktask' was created
+2022-02-20 INFO  [main]: Task 'tasktask' was created
+2022-02-20 INFO  [main]: Task 'tasktask' was deleted
+2022-02-20 INFO  [main]: Task 'tasktask' was created
+2022-02-20 INFO  [main]: Task 'daterob' was created
+2022-02-20 INFO  [main]: Task 'daterob' was deleted
+2022-02-20 INFO  [main]: Task 'daterob' was deleted
+2022-02-20 INFO  [main]: Task 'daterob' was created
+2022-02-20 INFO  [main]: Task 'hsrthdthr' was created
+2022-02-20 INFO  [main]: Task 'daterob' was date changed -> 2022-03-22T10:00
+2022-02-20 INFO  [main]: Task 'daterob' was changed in datafile
+2022-02-20 INFO  [main]: Task 'daterob' active = 0
+2022-02-20 INFO  [main]: Task 'daterob' was changed in datafile
+2022-02-20 INFO  [main]: Task 'daterob' was end date changed -> 2022-04-22T10:00
+2022-02-20 INFO  [main]: Task 'daterob' was changed in datafile
+2022-02-21 INFO  [main]: Task 'grtgrtrth' was created
+2022-04-18 INFO  [main]: Task 'newnew' was created
+2022-04-18 INFO  [main]: Task 'terte' was created
+2022-04-18 INFO  [main]: Task 'terte' was deleted
+2022-04-19 INFO  [main]: Task 'trhty' was created
+2022-04-19 INFO  [main]: Task 'rrrr' was created
+2022-04-19 INFO  [main]: Task 'rrrrrrrr3' was created
+2022-04-19 INFO  [main]: Task 'terte' was name changed -> tertenew
+2022-04-19 INFO  [main]: Task 'tertenew' was changed in datafile
+2022-04-19 INFO  [main]: Task 'namenew' was deleted
+2022-04-19 INFO  [main]: Task 'sorte1' was deleted
+2022-04-19 INFO  [main]: Task 'data' was deleted
+2022-04-19 INFO  [main]: Task 'daterob' was deleted
+2022-04-19 INFO  [main]: Task 'hsrthdthr' was deleted
+2022-04-19 INFO  [main]: Task 'taskfd' was created
+2022-04-19 INFO  [main]: Task 'нова' was created
+2022-04-19 INFO  [main]: Task 'новазадача2' was created
+2022-04-19 INFO  [main]: Task 'yjd' was created
+2022-04-19 INFO  [main]: Task '1' was name changed -> ok
+2022-04-19 INFO  [main]: Task 'ok' was changed in datafile
+2022-04-21 INFO  [main]: Task 'novazad' was created
+2022-04-21 INFO  [main]: Task 'задача' was created
+2022-04-21 INFO  [main]: Task 'zadacha1' was created
+2022-05-13 INFO  [main]: Task 'zadacha' was created
+2022-05-13 INFO  [main]: Task 'task1' was created
+2022-05-13 INFO  [main]: Task 'task2' was created
+2022-05-13 INFO  [main]: Task 'task' was created
+2022-05-13 INFO  [main]: Task number'1' was name changed -> задача1
+2022-05-13 INFO  [main]: Task 'задача1' was changed in datafile
+2022-05-13 INFO  [main]: Task '2' active = 0
+2022-05-13 INFO  [main]: Task 'task2' was changed in datafile
+2022-05-13 INFO  [main]: Task 'novazad' was created
+2022-05-13 INFO  [main]: Task 'newnewnew' was created
+2022-05-13 INFO  [main]: Task 'задача1' was deleted
+2022-05-15 INFO  [main]: Task 'newterye' was created
+2022-05-15 INFO  [main]: Task 'concrt' was created
+2022-05-15 INFO  [main]: Task '2' active = 0
+2022-05-15 INFO  [main]: Task 'task' was changed in datafile
+2022-05-15 INFO  [main]: Task 'task2' was deleted
+2022-05-15 INFO  [main]: Task number'1' was name changed -> tasknewst
+2022-05-15 INFO  [main]: Task 'tasknewst' was changed in datafile
+2022-05-15 INFO  [main]: Task number'1' was start date changed -> 2022-05-16T15:00
+2022-05-15 INFO  [main]: Task 'tasknewst' was changed in datafile
+2022-05-15 INFO  [main]: Task 'ioioio' was created
+2022-05-16 INFO  [main]: Task 'задачатака' was created
+2022-05-16 INFO  [main]: Task '1231231231' was created
+2022-05-16 INFO  [main]: Task 'mova' was created
+2022-05-16 INFO  [main]: Task 'repeat' was created
+2022-05-16 INFO  [main]: Task 'eghfgf' was created
+2022-05-16 INFO  [main]: Task 'iopipo' was created
+2022-05-16 INFO  [main]: Task 'hgfhdt' was created
+2022-05-16 INFO  [main]: Task 'hgfhdt234' was created
+2022-05-16 INFO  [main]: Task 'tyjfyyfu' was created
+2022-05-16 INFO  [main]: Task 'thrdf' was created
+2022-05-16 INFO  [main]: Task 'rep1' was created
+2022-05-16 INFO  [main]: Task 'gdfhfgjhfg' was created
+2022-05-16 INFO  [main]: Task '16' active = 1
+2022-05-16 INFO  [main]: Task 'gdfhfgjhfg' was changed in datafile
+2022-05-16 INFO  [main]: Task number'15' new interval
+2022-05-16 INFO  [main]: Task 'rep1' was changed in datafile
+2022-05-16 INFO  [main]: Task '15' active = 1
+2022-05-16 INFO  [main]: Task 'rep1' was changed in datafile
+2022-05-16 INFO  [main]: Task 'task2' was deleted
+2022-05-16 INFO  [main]: Task '2022-10-01 01:00' was created
+2022-05-16 INFO  [main]: Task 'Tt1' was created
+2022-05-16 INFO  [main]: Task '17' active = 1
+2022-05-16 INFO  [main]: Task 'Tt1' was changed in datafile
+2022-05-16 INFO  [main]: Task '2022-10-01 01:00' was deleted
+2022-05-16 INFO  [main]: Task 'mova' was deleted
+2022-05-16 INFO  [main]: Task 'eghfgf' was deleted
+2022-05-16 INFO  [main]: Task 'iopipo' was deleted
+2022-05-16 INFO  [main]: Task 'задчаааача' was created
+2022-05-16 INFO  [main]: Task number'13' was end date changed -> 2022-05-18T00:00
+2022-05-16 INFO  [main]: Task 'Tt1' was changed in datafile
+2022-05-16 INFO  [main]: Task '13' active = 1
+2022-05-16 INFO  [main]: Task 'Tt1' was changed in datafile
+2022-05-16 INFO  [main]: Task number'13' was end date changed -> 2022-05-17T00:00
+2022-05-16 INFO  [main]: Task 'Tt1' was changed in datafile
+2022-05-16 INFO  [main]: Task number'10' was date changed -> 2022-05-16T14:00
+2022-05-16 INFO  [main]: Task 'thrdf' was changed in datafile
+2022-05-16 INFO  [main]: Task 'uytoyuoyo' was created
+2022-05-16 INFO  [main]: Task 'uiutfgf' was created
+2022-05-16 INFO  [main]: Task 'задачатака' was deleted
+2022-05-16 INFO  [main]: Task 'прао' was created
+2022-05-16 INFO  [main]: Task 'рапрке45' was created
+2022-05-16 INFO  [main]: Task 'tdfghyfjt' was created
